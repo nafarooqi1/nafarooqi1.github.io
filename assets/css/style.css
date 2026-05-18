@@ -716,6 +716,7 @@ footer {
 @media (max-width: 600px) {
   .section { padding: 64px 0; }
   .hero-name { font-size: 3rem; }
+  #projects-grid { grid-template-columns: 1fr !important; }
   .project-card { flex-direction: column; gap: 1rem; }
   .project-arrow { display: none; }
   .metric-cards { grid-template-columns: 1fr 1fr; }
