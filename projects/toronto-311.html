@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toronto 311 Prioritization — Naila Ahmad Farooqi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">NAF</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">← All Projects</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <h1>Toronto 311 Service Request Prioritization</h1>
+      <p>An XGBoost classification model on ~1 million Toronto 311 service requests, leveraging cyclical time encoding, PCA, and rolling backlog features to dynamically prioritize high-urgency requests.</p>
+      <div class="project-meta-badges">
+        <span>🏙️ Capstone Project — 2026</span>
+        <span>Python</span><span>XGBoost</span><span>PCA</span>
+        <span>Feature Engineering</span><span>Classification</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-body">
+    <div class="container">
+
+      <!-- KEY METRICS -->
+      <div class="project-section">
+        <h2>Key Results</h2>
+        <div class="metric-cards">
+          <div class="metric-card">
+            <span class="metric-value">0.930</span>
+            <span class="metric-label">ROC-AUC Score</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">~1M</span>
+            <span class="metric-label">Records Analyzed</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">22%</span>
+            <span class="metric-label">Projected Reduction in Critical Response Times</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">70/30</span>
+            <span class="metric-label">ML / Backlog Hybrid Score</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div class="project-section">
+        <h2>Problem Statement</h2>
+        <p>The City of Toronto receives hundreds of thousands of 311 service requests annually, ranging from pothole repairs to emergency safety concerns. Without intelligent prioritization, critical incidents risk being buried under routine requests — delaying response times and straining municipal resources.</p>
+        <p>This project aimed to build a data-driven prioritization system that automatically ranks incoming requests by urgency, enabling the city to allocate resources proactively and reduce response times for high-impact issues.</p>
+      </div>
+
+      <!-- METHODOLOGY -->
+      <div class="project-section">
+        <h2>Methodology</h2>
+        <ul>
+          <li><strong>Data Source:</strong> Toronto Open Data — 311 Service Requests (2024–2025), approximately 1 million records</li>
+          <li><strong>Cyclical Time Encoding:</strong> Converted temporal features (hour, day, month) using sin/cos transforms to preserve cyclical nature for the model</li>
+          <li><strong>Rolling Backlog Features:</strong> Engineered features tracking historical backlog per service type to reflect real-time operational pressure</li>
+          <li><strong>Dimensionality Reduction:</strong> Applied PCA to reduce correlated features while retaining maximum variance</li>
+          <li><strong>Model:</strong> XGBoost classifier with hyperparameter tuning via cross-validation</li>
+          <li><strong>Hybrid Scoring:</strong> Final priority score = 70% ML prediction + 30% current backlog weight</li>
+        </ul>
+      </div>
+
+      <!-- CODE SNIPPET -->
+      <div class="project-section">
+        <h2>Code Highlights</h2>
+        <p>Below is a representative snippet of the feature engineering pipeline. Full notebook available on GitHub.</p>
+        <div class="code-block">
+          <code>
+# Cyclical time encoding
+df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 24)
+df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24)
+df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12)
+df['month_cos'] = np.cos(2 * np.pi * df['month'] / 12)
+
+# Rolling backlog feature (7-day window)
+df['rolling_backlog'] = (
+    df.groupby('service_type')['open_requests']
+    .transform(lambda x: x.rolling(7, min_periods=1).mean())
+)
+
+# Hybrid priority score
+df['priority_score'] = (
+    0.70 * df['ml_urgency_prob'] +
+    0.30 * df['backlog_normalized']
+)
+          </code>
+        </div>
+
+        <!-- ✏️ REPLACE with your actual notebook outputs/images -->
+        <div class="placeholder-viz">
+          <span class="viz-icon">📈</span>
+          <strong>ROC Curve Visualization</strong><br>
+          Replace this block with your actual chart image:<br>
+          <code>&lt;img src="../assets/images/311-roc-curve.png" alt="ROC Curve" /&gt;</code>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="project-section">
+        <h2>Results & Findings</h2>
+        <ul>
+          <li>Achieved a <strong>ROC-AUC of 0.930</strong>, significantly outperforming baseline models</li>
+          <li>The hybrid scoring system dynamically reranks requests in real time as backlog levels shift</li>
+          <li>Identified surge patterns and seasonal demand spikes (e.g., spring pothole season, winter snow removal)</li>
+          <li>Projected to reduce critical incident response times by <strong>up to 22%</strong> through smarter dispatch prioritization</li>
+          <li>Provided actionable resource allocation recommendations tied to historical surge periods</li>
+        </ul>
+
+        <!-- ✏️ REPLACE with actual result visualizations -->
+        <div class="placeholder-viz">
+          <span class="viz-icon">🗺️</span>
+          <strong>Feature Importance Chart / Confusion Matrix</strong><br>
+          Replace this with your actual output image from the notebook.
+        </div>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="project-section">
+        <h2>Tools & Technologies</h2>
+        <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span class="skill-tags"><span>Python</span></span>
+          <span class="skill-tags"><span>XGBoost</span></span>
+          <span class="skill-tags"><span>scikit-learn</span></span>
+          <span class="skill-tags"><span>Pandas</span></span>
+          <span class="skill-tags"><span>NumPy</span></span>
+          <span class="skill-tags"><span>PCA</span></span>
+          <span class="skill-tags"><span>Matplotlib</span></span>
+          <span class="skill-tags"><span>Jupyter Notebook</span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-name">Naila Ahmad Farooqi</div>
+      <div class="footer-links">
+        <a href="../index.html">← Back to Portfolio</a>
+        <a href="../index.html#projects">All Projects</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

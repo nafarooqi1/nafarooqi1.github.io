@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Mining & NLP — Naila Ahmad Farooqi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">NAF</a>
+      <ul class="nav-links"><li><a href="../index.html#projects">← All Projects</a></li></ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="project-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <h1>Text Mining & NLP Analysis</h1>
+      <p>Applied NLTK and TF-IDF on unstructured text data for sentiment analysis and topic modeling, translating raw text into structured analytical findings.</p>
+      <div class="project-meta-badges">
+        <span>📝 NLP — 2025</span><span>Python</span><span>NLTK</span><span>TF-IDF</span><span>Sentiment Analysis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+
+      <div class="project-section">
+        <h2>Overview</h2>
+        <p>This project applies core NLP techniques to unstructured text corpora, building pipelines that clean, tokenize, vectorize, and model text data. The goal was to extract meaningful patterns — sentiment trends and latent topics — that are not visible in raw text.</p>
+      </div>
+
+      <div class="project-section">
+        <h2>Techniques Applied</h2>
+        <ul>
+          <li><strong>Text Preprocessing:</strong> Lowercasing, punctuation removal, stopword filtering, stemming/lemmatization</li>
+          <li><strong>Tokenization:</strong> Word and sentence-level tokenization with NLTK</li>
+          <li><strong>TF-IDF Vectorization:</strong> Converting text to numerical features capturing term importance</li>
+          <li><strong>Sentiment Analysis:</strong> Polarity scoring using VADER and lexicon-based approaches</li>
+          <li><strong>Topic Modeling:</strong> LDA for latent topic discovery across document corpus</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>Code Highlights</h2>
+        <div class="code-block"><code>
+import nltk
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# Preprocessing
+def preprocess(text):
+    tokens = nltk.word_tokenize(text.lower())
+    tokens = [t for t in tokens if t.isalpha()]
+    stop_words = set(nltk.corpus.stopwords.words('english'))
+    return ' '.join([t for t in tokens if t not in stop_words])
+
+# TF-IDF
+vectorizer = TfidfVectorizer(max_features=500)
+X_tfidf = vectorizer.fit_transform(df['text'].apply(preprocess))
+
+# Sentiment scoring
+sid = SentimentIntensityAnalyzer()
+df['sentiment'] = df['text'].apply(
+    lambda x: sid.polarity_scores(x)['compound']
+)
+        </code></div>
+
+        <div class="placeholder-viz">
+          <span class="viz-icon">☁️</span>
+          <strong>Word Cloud / Sentiment Distribution</strong><br>
+          ✏️ Replace with your actual output visualization from the notebook.
+        </div>
+      </div>
+
+      <div class="project-section">
+        <h2>Key Findings</h2>
+        <ul>
+          <li>TF-IDF effectively identified discriminating terms across document categories</li>
+          <li>VADER sentiment analysis captured polarity shifts across time-based text corpora</li>
+          <li>LDA topic modeling revealed coherent latent themes not visible in raw text</li>
+          <li>Preprocessing quality had the highest impact on downstream model performance</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-name">Naila Ahmad Farooqi</div>
+      <div class="footer-links">
+        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html#projects">All Projects</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

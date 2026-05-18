@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Analytics — Naila Ahmad Farooqi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">NAF</a>
+      <ul class="nav-links"><li><a href="../index.html#projects">← All Projects</a></li></ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="project-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <h1>Health Analytics Project</h1>
+      <p>Clinical pattern discovery using statistical analysis and NLP in Python — surfacing insights from healthcare datasets to support data-driven decisions in clinical settings.</p>
+      <div class="project-meta-badges">
+        <span>🏥 Health Analytics — 2025</span><span>Python</span><span>NLP</span><span>Statistics</span><span>Healthcare</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+
+      <div class="project-section">
+        <h2>Overview</h2>
+        <p>This project combined statistical analysis and natural language processing to analyze healthcare datasets and surface actionable clinical patterns. The goal was to demonstrate how data science techniques can translate complex health data into meaningful insights for clinical and operational decision-making.</p>
+      </div>
+
+      <div class="project-section">
+        <h2>Methods Applied</h2>
+        <ul>
+          <li><strong>Descriptive Statistics:</strong> Distribution analysis, correlation matrices, outlier detection</li>
+          <li><strong>Statistical Testing:</strong> Hypothesis testing to identify significant clinical variables</li>
+          <li><strong>NLP on Clinical Text:</strong> Processing unstructured notes/descriptions for pattern extraction</li>
+          <li><strong>Visualization:</strong> Matplotlib and seaborn dashboards surfacing clinical trends</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>Code Highlights</h2>
+        <div class="code-block"><code>
+import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Statistical test example
+group_a = df[df['treatment'] == 'A']['outcome']
+group_b = df[df['treatment'] == 'B']['outcome']
+t_stat, p_value = stats.ttest_ind(group_a, group_b)
+print(f"t-statistic: {t_stat:.3f}, p-value: {p_value:.4f}")
+
+# Correlation heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', center=0)
+plt.title('Clinical Variable Correlations')
+plt.tight_layout()
+        </code></div>
+
+        <div class="placeholder-viz">
+          <span class="viz-icon">🏥</span>
+          <strong>Clinical Pattern Visualization</strong><br>
+          ✏️ Replace with your actual charts and output from the notebook.
+        </div>
+      </div>
+
+      <div class="project-section">
+        <h2>Key Findings</h2>
+        <ul>
+          <li>Identified statistically significant correlations between selected clinical variables</li>
+          <li>NLP preprocessing revealed recurring symptom patterns in unstructured clinical text</li>
+          <li>Visualization dashboards highlighted actionable trends for clinical staff review</li>
+          <li>Analysis supported evidence-based recommendations for resource and treatment planning</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-name">Naila Ahmad Farooqi</div>
+      <div class="footer-links">
+        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html#projects">All Projects</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

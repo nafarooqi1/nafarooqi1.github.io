@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toronto Homicide Analysis — Naila Ahmad Farooqi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">NAF</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">← All Projects</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="project-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <h1>Toronto Homicide Patterns Analysis</h1>
+      <p>Comprehensive EDA and machine learning analysis of Toronto Police Service homicide records from 2004–2025, identifying temporal patterns, geographic concentrations, and building classification models to predict incident type.</p>
+      <div class="project-meta-badges">
+        <span>🔍 Business Analytics — 2026</span>
+        <span>Python</span><span>EDA</span><span>CRISP-DM</span>
+        <span>Random Forest</span><span>Decision Tree</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+
+      <div class="project-section">
+        <h2>Key Results</h2>
+        <div class="metric-cards">
+          <div class="metric-card">
+            <span class="metric-value">56.21%</span>
+            <span class="metric-label">Random Forest Accuracy</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">83%</span>
+            <span class="metric-label">Recall (Shooting Classification)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">52%</span>
+            <span class="metric-label">Shootings as % of Cases</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">3</span>
+            <span class="metric-label">High-Concentration Divisions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-section">
+        <h2>Problem Statement</h2>
+        <p>Understanding homicide patterns is critical for informed policing and community safety policy. This project applied the CRISP-DM framework to 21 years of Toronto homicide data, aiming to surface hidden patterns by time, location, and incident type — and to evaluate whether machine learning could reliably classify homicide types for proactive resource deployment.</p>
+      </div>
+
+      <div class="project-section">
+        <h2>Methodology (CRISP-DM)</h2>
+        <ul>
+          <li><strong>Business Understanding:</strong> Identify geographic hotspots, seasonal trends, and classify incident types</li>
+          <li><strong>Data Understanding:</strong> TPS homicide records 2004–2025; EDA to assess distributions, missing values, and outliers</li>
+          <li><strong>Data Preparation:</strong> Encoding categorical variables, handling nulls, class balancing</li>
+          <li><strong>Modeling:</strong> Decision Tree and Random Forest classifiers (scikit-learn); 80/20 train-test split</li>
+          <li><strong>Evaluation:</strong> Accuracy, precision, recall, F1; compared to 54.25% baseline</li>
+          <li><strong>Deployment:</strong> Findings presented as policy-oriented recommendations</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>Code Highlights</h2>
+        <div class="code-block">
+          <code>
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# Random Forest
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+print(classification_report(y_test, rf.predict(X_test)))
+
+# Accuracy: 56.21% | Recall (shooting): 83%
+          </code>
+        </div>
+
+        <div class="placeholder-viz">
+          <span class="viz-icon">📊</span>
+          <strong>Homicide by Division / Monthly Trend Chart</strong><br>
+          Replace this with your actual visualization from the notebook.
+        </div>
+      </div>
+
+      <div class="project-section">
+        <h2>Key Findings</h2>
+        <ul>
+          <li>Shootings account for <strong>52% of all homicide cases</strong> — the dominant method over the 21-year period</li>
+          <li>Three police divisions — <strong>D31, D51, D42</strong> — account for a disproportionate concentration of incidents</li>
+          <li>Clear <strong>July–August seasonal spike</strong> identified consistently across years</li>
+          <li>Random Forest achieved <strong>56.21% accuracy</strong>, surpassing the 54.25% baseline, with 83% recall for shooting classification</li>
+          <li>High recall for shootings indicates the model is effective at flagging shooting incidents — valuable for resource pre-deployment</li>
+        </ul>
+
+        <div class="placeholder-viz">
+          <span class="viz-icon">🗂️</span>
+          <strong>Feature Importance / Confusion Matrix</strong><br>
+          Replace with your actual model output visualizations.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-name">Naila Ahmad Farooqi</div>
+      <div class="footer-links">
+        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html#projects">All Projects</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
