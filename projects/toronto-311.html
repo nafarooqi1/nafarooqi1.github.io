@@ -164,27 +164,22 @@ df["daily_backlog"] = df.groupby(df["creation_date"].dt.date).cumcount()
         <p>Four key patterns discovered during EDA shaped the feature engineering and modeling decisions.</p>
         <div class="eda-grid">
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/eda-daily-volume.png" alt="Daily Volume" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">📈</span><strong>Daily Volume of 311 Requests</strong>Save from notebook as: assets/images/eda-daily-volume.png</div>
+            <img src="../assets/images/eda-daily-volume.png" alt="Daily Volume of 311 Service Requests" />
             <div class="eda-caption"><strong>Feb 2025 Snowstorm Spike</strong>Daily volume spiked 225% above the prior year in Feb 2025 due to a major snowstorm - the highest single-day count in the entire dataset.</div>
           </div>
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/eda-monthly-volume.png" alt="Monthly Volume" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">📅</span><strong>Monthly Volume 2024 vs 2025</strong>Save from notebook as: assets/images/eda-monthly-volume.png</div>
+            <img src="../assets/images/eda-monthly-volume.png" alt="Monthly 311 Request Volume 2024 vs 2025" />
             <div class="eda-caption"><strong>Seasonal Demand Surge</strong>Volume rises ~40% from Q1 to Q3 annually. Both years follow a summer peak pattern driven by outdoor construction and wildlife activity.</div>
           </div>
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/eda-hourly.png" alt="Requests by Hour" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">🕘</span><strong>Requests by Hour of Day</strong>Save from notebook as: assets/images/eda-hourly.png</div>
+            <img src="../assets/images/eda-hourly.png" alt="Requests by Hour of Day" />
             <div class="eda-caption"><strong>Peak Hours: 9 AM - 3 PM</strong>Activity is concentrated in business hours. Low overnight volumes confirm that 24/7 portal access is for digital submission, not live resource demand.</div>
           </div>
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/eda-service-types.png" alt="Top Service Types" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">📊</span><strong>Top 10 Service Types (Excl. "Other")</strong>Save from notebook as: assets/images/eda-service-types.png</div>
+            <img src="../assets/images/eda-service-types.png" alt="Top 10 Service Request Types" />
             <div class="eda-caption"><strong>Class Imbalance and Long-Tail Distribution</strong>"Injured - Wildlife" is the most frequent specific request type. The distribution reveals moderate imbalance across waste, wildlife, and property issues.</div>
           </div>
         </div>
-        <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;">To add your charts: in the notebook add <code>plt.savefig('eda-daily-volume.png', dpi=150, bbox_inches='tight')</code> before each <code>plt.show()</code>, place saved images in <code>assets/images/</code>, then replace the placeholder blocks with <code>&lt;img src="../assets/images/filename.png"&gt;</code>.</p>
       </div>
 
       <div class="project-section">
