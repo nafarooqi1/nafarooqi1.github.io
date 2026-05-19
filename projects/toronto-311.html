@@ -3,11 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Toronto 311 Prioritization — Naila Ahmad Farooqi</title>
+  <title>Toronto 311 Capstone - Naila Ahmad Farooqi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .model-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem}
+    .model-table th{background:var(--navy);color:var(--gold);padding:.75rem 1rem;text-align:left;font-weight:600}
+    .model-table td{padding:.7rem 1rem;border-bottom:1px solid var(--cream-2);color:var(--muted)}
+    .model-table tr:last-child td{border-bottom:none}
+    .model-table tr.best td{color:var(--navy);font-weight:600;background:rgba(201,168,76,.08)}
+    .eda-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.5rem 0}
+    .eda-cell{background:var(--cream-2);border-radius:10px;overflow:hidden;border:1px solid var(--cream-2)}
+    .eda-cell img{width:100%;display:block}
+    .eda-caption{padding:.75rem 1rem;font-size:.82rem;color:var(--muted);line-height:1.5}
+    .eda-caption strong{color:var(--navy);display:block;margin-bottom:.25rem}
+    .eda-placeholder{background:var(--cream-2);border:2px dashed #ccc;border-radius:10px;padding:2.5rem 1rem;text-align:center;color:var(--muted);font-size:.85rem}
+    .eda-placeholder .viz-icon{font-size:2rem;display:block;margin-bottom:.5rem}
+    .pipeline-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0}
+    .pipeline-step{background:var(--navy);color:var(--white);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .pipeline-step .step-num{font-family:var(--font-display);font-size:2rem;color:var(--gold);line-height:1;margin-bottom:.5rem}
+    .pipeline-step .step-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.5rem}
+    .pipeline-step .step-desc{font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.5}
+    .download-section{background:var(--navy);border-radius:14px;padding:2.5rem;margin-top:3rem;border:1px solid rgba(201,168,76,.2)}
+    .download-section h2{color:var(--white);border-bottom-color:rgba(201,168,76,.2);margin-bottom:1rem}
+    .download-section p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem}
+    .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+    .download-btn{display:inline-flex;align-items:center;gap:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.88rem;font-weight:500;padding:.75rem 1.5rem;border-radius:var(--radius);font-family:var(--font-body);cursor:pointer;text-decoration:none;transition:all .25s ease}
+    .download-btn:hover{background:var(--gold);color:var(--navy)}
+    .insight-box{background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+    .insight-box strong{color:var(--navy)}
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+    @media(max-width:700px){.eda-grid{grid-template-columns:1fr}.pipeline-steps{grid-template-columns:1fr 1fr}.problem-grid{grid-template-columns:1fr}}
+    @media(max-width:450px){.pipeline-steps{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
@@ -17,141 +47,265 @@
       <ul class="nav-links">
         <li><a href="../index.html#about">About</a></li>
         <li><a href="../index.html#skills">Skills</a></li>
-        <li><a href="../index.html#projects">← All Projects</a></li>
+        <li><a href="../index.html#projects">All Projects</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- HERO -->
   <div class="project-page-hero">
     <div class="container">
-      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <a href="../index.html#projects" class="back-link">Back to Projects</a>
       <h1>Toronto 311 Service Request Prioritization</h1>
-      <p>An XGBoost classification model on ~1 million Toronto 311 service requests, leveraging cyclical time encoding, PCA, and rolling backlog features to dynamically prioritize high-urgency requests.</p>
+      <p>Capstone Project (BDC800) - A four-stage ML pipeline analyzing ~1 million Toronto 311 service requests to build a dynamic, data-driven prioritization system using XGBoost and hybrid scoring.</p>
       <div class="project-meta-badges">
-        <span>🏙️ Capstone Project — 2026</span>
+        <span>Capstone - BDC800 · April 2026</span>
+        <span>Group 6</span>
         <span>Python</span><span>XGBoost</span><span>PCA</span>
         <span>Feature Engineering</span><span>Classification</span>
       </div>
     </div>
   </div>
 
-  <!-- BODY -->
   <div class="project-body">
     <div class="container">
 
-      <!-- KEY METRICS -->
       <div class="project-section">
         <h2>Key Results</h2>
         <div class="metric-cards">
-          <div class="metric-card">
-            <span class="metric-value">0.930</span>
-            <span class="metric-label">ROC-AUC Score</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">~1M</span>
-            <span class="metric-label">Records Analyzed</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">22%</span>
-            <span class="metric-label">Projected Reduction in Critical Response Times</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">70/30</span>
-            <span class="metric-label">ML / Backlog Hybrid Score</span>
-          </div>
+          <div class="metric-card"><span class="metric-value">0.930</span><span class="metric-label">XGBoost ROC-AUC</span></div>
+          <div class="metric-card"><span class="metric-value">~1M</span><span class="metric-label">Records Analyzed</span></div>
+          <div class="metric-card"><span class="metric-value">63.5%</span><span class="metric-label">Variance Captured by PCA</span></div>
+          <div class="metric-card"><span class="metric-value">225%</span><span class="metric-label">Feb 2025 Snowstorm Surge</span></div>
         </div>
       </div>
 
-      <!-- OVERVIEW -->
       <div class="project-section">
         <h2>Problem Statement</h2>
-        <p>The City of Toronto receives hundreds of thousands of 311 service requests annually, ranging from pothole repairs to emergency safety concerns. Without intelligent prioritization, critical incidents risk being buried under routine requests — delaying response times and straining municipal resources.</p>
-        <p>This project aimed to build a data-driven prioritization system that automatically ranks incoming requests by urgency, enabling the city to allocate resources proactively and reduce response times for high-impact issues.</p>
-      </div>
-
-      <!-- METHODOLOGY -->
-      <div class="project-section">
-        <h2>Methodology</h2>
+        <p>The City of Toronto receives approximately 1 million 311 service requests annually - from pothole repairs to wildlife emergencies. Traditional rule-based prioritization systems fail to adapt to seasonal surges, geographic demand shifts, and real-time backlog pressure, leading to delayed response times for critical incidents.</p>
+        <div class="problem-grid">
+          <div class="insight-box"><strong>Reactive, Not Predictive</strong> Static rule-based systems cannot adapt to fluctuating demand, seasonal surges, or backlog pressure.</div>
+          <div class="insight-box"><strong>Seasonal Surge Blindness</strong> Volume increases ~40% between Q1 and Q3. A Feb 2025 snowstorm caused a 225% surge vs the prior year with no early warning.</div>
+          <div class="insight-box"><strong>Class Imbalance Problem</strong> Only 3.6% of requests are Open/In Progress (high priority). Accuracy alone is misleading - F1, Recall, and ROC-AUC are the critical metrics.</div>
+          <div class="insight-box"><strong>Uneven Geographic Demand</strong> Top 4 wards account for a disproportionate share of all requests. A one-size-fits-all strategy wastes limited city resources.</div>
+        </div>
+        <p><strong>Business Questions driving this project:</strong></p>
         <ul>
-          <li><strong>Data Source:</strong> Toronto Open Data — 311 Service Requests (2024–2025), approximately 1 million records</li>
-          <li><strong>Cyclical Time Encoding:</strong> Converted temporal features (hour, day, month) using sin/cos transforms to preserve cyclical nature for the model</li>
-          <li><strong>Rolling Backlog Features:</strong> Engineered features tracking historical backlog per service type to reflect real-time operational pressure</li>
-          <li><strong>Dimensionality Reduction:</strong> Applied PCA to reduce correlated features while retaining maximum variance</li>
-          <li><strong>Model:</strong> XGBoost classifier with hyperparameter tuning via cross-validation</li>
-          <li><strong>Hybrid Scoring:</strong> Final priority score = 70% ML prediction + 30% current backlog weight</li>
+          <li>Can historical 311 data predict request urgency or expected resolution delay?</li>
+          <li>Which factors most influence service prioritization - type, time, location, or backlog?</li>
+          <li>Does incorporating system-level context (backlog) improve prioritization accuracy?</li>
         </ul>
       </div>
 
-      <!-- CODE SNIPPET -->
       <div class="project-section">
-        <h2>Code Highlights</h2>
-        <p>Below is a representative snippet of the feature engineering pipeline. Full notebook available on GitHub.</p>
-        <div class="code-block">
-          <code>
-# Cyclical time encoding
-df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 24)
-df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24)
-df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12)
-df['month_cos'] = np.cos(2 * np.pi * df['month'] / 12)
-
-# Rolling backlog feature (7-day window)
-df['rolling_backlog'] = (
-    df.groupby('service_type')['open_requests']
-    .transform(lambda x: x.rolling(7, min_periods=1).mean())
-)
-
-# Hybrid priority score
-df['priority_score'] = (
-    0.70 * df['ml_urgency_prob'] +
-    0.30 * df['backlog_normalized']
-)
-          </code>
-        </div>
-
-        <!-- ✏️ REPLACE with your actual notebook outputs/images -->
-        <div class="placeholder-viz">
-          <span class="viz-icon">📈</span>
-          <strong>ROC Curve Visualization</strong><br>
-          Replace this block with your actual chart image:<br>
-          <code>&lt;img src="../assets/images/311-roc-curve.png" alt="ROC Curve" /&gt;</code>
+        <h2>Methodology - Four-Stage Pipeline</h2>
+        <p>A structured pipeline was designed from raw data to dynamic priority scoring.</p>
+        <div class="pipeline-steps">
+          <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <div class="step-title">Data Cleaning & EDA</div>
+            <div class="step-desc">Remove duplicates, parse dates, fill missing values, explore temporal, geographic, and type-level demand patterns</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <div class="step-title">Feature Engineering</div>
+            <div class="step-desc">Cyclical time encoding (sin/cos), frequency encoding for ward and service type, 3-day and 7-day rolling backlog windows</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <div class="step-title">PCA & Modeling</div>
+            <div class="step-desc">Reduce 8 correlated features into 3 PCA components (63.5% variance). Train Logistic Regression, Random Forest, XGBoost</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <div class="step-title">Priority Scoring</div>
+            <div class="step-desc">Hybrid score: 70% ML probability + 30% 7-day backlog. Rank all requests dynamically and compare vs rule-based approach</div>
+          </div>
         </div>
       </div>
 
-      <!-- RESULTS -->
       <div class="project-section">
-        <h2>Results & Findings</h2>
+        <h2>Data Overview & Preprocessing</h2>
+        <p>Source: City of Toronto Open Data Portal - 311 Service Requests 2024-2025 (~1 million records, 44+ wards, 3.6% high priority).</p>
         <ul>
-          <li>Achieved a <strong>ROC-AUC of 0.930</strong>, significantly outperforming baseline models</li>
-          <li>The hybrid scoring system dynamically reranks requests in real time as backlog levels shift</li>
-          <li>Identified surge patterns and seasonal demand spikes (e.g., spring pothole season, winter snow removal)</li>
-          <li>Projected to reduce critical incident response times by <strong>up to 22%</strong> through smarter dispatch prioritization</li>
-          <li>Provided actionable resource allocation recommendations tied to historical surge periods</li>
+          <li>Dropped duplicates and standardized all column names to snake_case</li>
+          <li>Dropped rows missing <code>creation_date</code> or <code>service_request_type</code></li>
+          <li>Filled missing ward values with 'Unknown'; missing status with 'Open'</li>
+          <li>Parsed dates and extracted hour, day of week, month, and year</li>
+          <li>Grouped rare service types into 'other' - kept top 15 categories</li>
+          <li>Created <code>is_peak_hour</code> flag for 7-10 AM and 4-7 PM windows</li>
+          <li>Built <code>daily_backlog</code> as an intra-day cumulative request count</li>
         </ul>
+        <div class="code-block"><code>
+# Standardize column names
+df.columns = df.columns.str.lower().str.strip().str.replace(" ", "_")
 
-        <!-- ✏️ REPLACE with actual result visualizations -->
-        <div class="placeholder-viz">
-          <span class="viz-icon">🗺️</span>
-          <strong>Feature Importance Chart / Confusion Matrix</strong><br>
-          Replace this with your actual output image from the notebook.
+# Drop rows with critical missing values
+df = df.dropna(subset=["creation_date", "service_request_type"])
+
+# Fill non-critical missing values
+df["ward"]   = df["ward"].fillna("Unknown")
+df["status"] = df["status"].fillna("Open")
+
+# Group rare service types (keep top 15)
+top_services = df["service_request_type"].value_counts().nlargest(15).index
+df["service_request_type"] = df["service_request_type"].where(
+    df["service_request_type"].isin(top_services), "other"
+)
+
+# Build intra-day backlog counter
+df = df.sort_values("creation_date")
+df["daily_backlog"] = df.groupby(df["creation_date"].dt.date).cumcount()
+        </code></div>
+      </div>
+
+      <div class="project-section">
+        <h2>Exploratory Data Analysis</h2>
+        <p>Four key patterns discovered during EDA shaped the feature engineering and modeling decisions.</p>
+        <div class="eda-grid">
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/eda-daily-volume.png" alt="Daily Volume" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">📈</span><strong>Daily Volume of 311 Requests</strong>Save from notebook as: assets/images/eda-daily-volume.png</div>
+            <div class="eda-caption"><strong>Feb 2025 Snowstorm Spike</strong>Daily volume spiked 225% above the prior year in Feb 2025 due to a major snowstorm - the highest single-day count in the entire dataset.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/eda-monthly-volume.png" alt="Monthly Volume" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">📅</span><strong>Monthly Volume 2024 vs 2025</strong>Save from notebook as: assets/images/eda-monthly-volume.png</div>
+            <div class="eda-caption"><strong>Seasonal Demand Surge</strong>Volume rises ~40% from Q1 to Q3 annually. Both years follow a summer peak pattern driven by outdoor construction and wildlife activity.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/eda-hourly.png" alt="Requests by Hour" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">🕘</span><strong>Requests by Hour of Day</strong>Save from notebook as: assets/images/eda-hourly.png</div>
+            <div class="eda-caption"><strong>Peak Hours: 9 AM - 3 PM</strong>Activity is concentrated in business hours. Low overnight volumes confirm that 24/7 portal access is for digital submission, not live resource demand.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/eda-service-types.png" alt="Top Service Types" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">📊</span><strong>Top 10 Service Types (Excl. "Other")</strong>Save from notebook as: assets/images/eda-service-types.png</div>
+            <div class="eda-caption"><strong>Class Imbalance and Long-Tail Distribution</strong>"Injured - Wildlife" is the most frequent specific request type. The distribution reveals moderate imbalance across waste, wildlife, and property issues.</div>
+          </div>
+        </div>
+        <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;">To add your charts: in the notebook add <code>plt.savefig('eda-daily-volume.png', dpi=150, bbox_inches='tight')</code> before each <code>plt.show()</code>, place saved images in <code>assets/images/</code>, then replace the placeholder blocks with <code>&lt;img src="../assets/images/filename.png"&gt;</code>.</p>
+      </div>
+
+      <div class="project-section">
+        <h2>Feature Engineering</h2>
+        <p><strong>Cyclical Time Encoding</strong> - Time is cyclical, not linear. Hour 23 and hour 0 are only 1 hour apart in reality but 23 units apart on a linear scale. Sin/cos encoding projects time onto a unit circle, preserving adjacency relationships and improving model performance on overnight patterns.</p>
+        <div class="code-block"><code>
+# Cyclical encoding - preserves circular nature of time
+df['hour_sin']  = np.sin(2 * np.pi * df['creation_hour'] / 24)
+df['hour_cos']  = np.cos(2 * np.pi * df['creation_hour'] / 24)
+df['month_sin'] = np.sin(2 * np.pi * df['creation_month'] / 12)
+df['month_cos'] = np.cos(2 * np.pi * df['creation_month'] / 12)
+        </code></div>
+
+        <p><strong>Rolling Backlog Features</strong> - Service requests are temporally dependent. A surge today increases the likelihood of backlog tomorrow. We constructed 3-day and 7-day rolling demand windows per service type.</p>
+        <div class="code-block"><code>
+df = df.sort_values(['service_request_type', 'creation_date'])
+
+def compute_rolling(group):
+    group = group.copy().set_index('creation_date')
+    group['rolling_3d_volume'] = group['status'].rolling('3D').count()
+    group['rolling_7d_volume'] = group['status'].rolling('7D').count()
+    return group.reset_index()
+
+df = df.groupby('service_request_type', group_keys=False).apply(compute_rolling)
+        </code></div>
+
+        <p><strong>PCA Dimensionality Reduction</strong> - Eight correlated engineered features were reduced to 3 orthogonal principal components, capturing 63.5% of total variance and eliminating multicollinearity before modeling.</p>
+        <div class="code-block"><code>
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+pca_features = [
+    'hour_sin', 'hour_cos', 'month_sin', 'month_cos',
+    'ward_freq', 'service_request_type_freq',
+    'rolling_3d_volume', 'rolling_7d_volume'
+]
+
+X_scaled = StandardScaler().fit_transform(df[pca_features].fillna(0))
+pca = PCA(n_components=3)
+df[['PC1', 'PC2', 'PC3']] = pca.fit_transform(X_scaled)
+# PC1: Demand & Backlog (34.3%) | PC2: Time-of-Day | PC3: Seasonal Pattern
+        </code></div>
+      </div>
+
+      <div class="project-section">
+        <h2>Modeling Framework</h2>
+        <p>Three classifiers were trained and compared. Due to severe class imbalance (3.6% high-priority), evaluation focused on F1, Recall, and ROC-AUC rather than accuracy.</p>
+        <table class="model-table">
+          <thead>
+            <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Logistic Regression (Baseline)</td><td>96.42%</td><td>0.00</td><td>0.00</td><td>0.000</td><td>0.779</td><td>0.119</td></tr>
+            <tr><td>Random Forest (Tuned)</td><td>96.54%</td><td>74.26%</td><td>5.26%</td><td>0.098</td><td>0.912</td><td>0.359</td></tr>
+            <tr class="best"><td>XGBoost (Tuned) - Best Model</td><td>96.77%</td><td>73.59%</td><td>15.15%</td><td>0.251</td><td>0.930</td><td>0.428</td></tr>
+          </tbody>
+        </table>
+        <div class="code-block"><code>
+from xgboost import XGBClassifier
+
+xgb = XGBClassifier(
+    n_estimators=400,
+    learning_rate=0.05,
+    max_depth=8,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    scale_pos_weight=27,    # handles 96.4% vs 3.6% class imbalance
+    eval_metric='logloss',
+    random_state=42
+)
+xgb.fit(X_train, y_train)
+proba = xgb.predict_proba(X_test)[:, 1]
+print("ROC-AUC:", roc_auc_score(y_test, proba))  # 0.930
+        </code></div>
+      </div>
+
+      <div class="project-section">
+        <h2>Hybrid Priority Scoring</h2>
+        <p>Rather than relying solely on ML probability, the model output was combined with real-time backlog context to produce a more operationally meaningful priority score.</p>
+        <div class="code-block"><code>
+# Hybrid score: 70% ML probability + 30% normalized 7-day backlog
+df['ml_priority_score']    = xgb.predict_proba(X)[:, 1]
+df['final_priority_score'] = (
+    0.70 * df['ml_priority_score'] +
+    0.30 * df['rolling_7d_volume']
+)
+df['priority_rank'] = df['final_priority_score'].rank(ascending=False)
+
+# Comparison vs rule-based approach (top 1000 requests)
+ml_top   = df.sort_values("final_priority_score", ascending=False).head(1000)
+rule_top = df.sort_values("service_request_type_freq", ascending=False).head(1000)
+print("Median Backlog - ML hybrid:", ml_top['rolling_7d_volume'].median())
+print("Median Backlog - Rule-based:", rule_top['rolling_7d_volume'].median())
+        </code></div>
+        <div class="insight-box">
+          <strong>Why 70/30?</strong> The 70% ML component captures complex nonlinear patterns across service type, geography, and time. The 30% backlog component grounds the score in real operational pressure - ensuring requests submitted during surge periods are ranked higher, even when the ML score alone would not flag them.
         </div>
       </div>
 
-      <!-- TOOLS -->
       <div class="project-section">
-        <h2>Tools & Technologies</h2>
-        <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:.5rem;">
-          <span class="skill-tags"><span>Python</span></span>
-          <span class="skill-tags"><span>XGBoost</span></span>
-          <span class="skill-tags"><span>scikit-learn</span></span>
-          <span class="skill-tags"><span>Pandas</span></span>
-          <span class="skill-tags"><span>NumPy</span></span>
-          <span class="skill-tags"><span>PCA</span></span>
-          <span class="skill-tags"><span>Matplotlib</span></span>
-          <span class="skill-tags"><span>Jupyter Notebook</span></span>
+        <h2>Key Findings & Recommendations</h2>
+        <ul>
+          <li><strong>XGBoost is the best model</strong> - F1 of 0.251, ROC-AUC of 0.930, PR-AUC of 0.428, outperforming both baseline models</li>
+          <li><strong>Feature engineering doubled Recall and F1</strong> - Rolling backlog features were the single most important predictor of urgency</li>
+          <li><strong>Accuracy is misleading</strong> - All models hit ~96% accuracy purely due to class imbalance; F1/Recall/AUC are the real performance indicators</li>
+          <li><strong>Rolling backlog is the top urgency signal</strong> - Operational context outweighs static service-type rules</li>
+          <li><strong>Prescriptive actions:</strong> Deploy the hybrid priority score, pre-position resources before the July-August surge, implement weather-triggered surge protocols, use ward signals to geo-allocate wildlife teams</li>
+          <li><strong>Next steps:</strong> Apply SMOTE + threshold tuning to improve recall, explore LightGBM and stacking ensembles, build a real-time 311 priority dashboard, expand to multi-class urgency levels</li>
+        </ul>
+      </div>
+
+      <div class="download-section">
+        <h2>Project Files</h2>
+        <p>Download the full Jupyter notebook and the final presentation slides.</p>
+        <div class="download-buttons">
+          <a href="../assets/files/Capstone_Project_Group_6.ipynb" download class="download-btn">
+            <span class="btn-icon">📓</span> Download Notebook (.ipynb)
+          </a>
+          <a href="../assets/files/Capstone_Final_Presentation.pdf" target="_blank" class="download-btn">
+            <span class="btn-icon">📊</span> View Presentation (.pdf)
+          </a>
         </div>
       </div>
 
@@ -162,12 +316,12 @@ df['priority_score'] = (
     <div class="container footer-inner">
       <div class="footer-name">Naila Ahmad Farooqi</div>
       <div class="footer-links">
-        <a href="../index.html">← Back to Portfolio</a>
+        <a href="../index.html">Portfolio</a>
         <a href="../index.html#projects">All Projects</a>
+        <a href="mailto:nailafarooqi394@gmail.com">Email</a>
       </div>
     </div>
   </footer>
-
   <script src="../assets/js/main.js"></script>
 </body>
 </html>
