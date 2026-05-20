@@ -1,19 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Predictive Analytics & ML — Naila Ahmad Farooqi</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predicting Road Accident Severity - Naila Ahmad Farooqi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .model-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem}
+    .model-table th{background:var(--navy);color:var(--gold);padding:.75rem 1rem;text-align:left;font-weight:600}
+    .model-table td{padding:.7rem 1rem;border-bottom:1px solid var(--cream-2);color:var(--muted)}
+    .model-table tr:last-child td{border-bottom:none}
+    .model-table tr.best td{color:var(--navy);font-weight:600;background:rgba(201,168,76,.08)}
+
+    .eda-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.5rem 0}
+    .eda-cell{background:var(--cream-2);border-radius:10px;overflow:hidden;border:1px solid var(--cream-2)}
+    .eda-cell img{width:100%;display:block}
+    .eda-caption{padding:.75rem 1rem;font-size:.82rem;color:var(--muted);line-height:1.5}
+    .eda-caption strong{color:var(--navy);display:block;margin-bottom:.25rem}
+    .eda-placeholder{background:var(--cream-2);border:2px dashed #ccc;border-radius:10px;padding:2rem 1rem;text-align:center;color:var(--muted);font-size:.85rem}
+    .eda-placeholder .viz-icon{font-size:2rem;display:block;margin-bottom:.5rem}
+
+    .prep-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+    .prep-step{background:var(--navy);color:var(--white);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .prep-step .step-num{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:.5rem}
+    .prep-step .step-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+    .prep-step .step-desc{font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+    .insight-box{background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+    .insight-box strong{color:var(--navy)}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0}
+    .kpi-card{background:var(--cream-2);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid var(--cream-2)}
+    .kpi-value{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.3rem}
+    .kpi-label{font-size:.78rem;color:var(--muted)}
+
+    .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+    .rec-card{background:var(--cream-2);border-radius:10px;padding:1.5rem;border-left:3px solid var(--gold)}
+    .rec-card h4{font-family:var(--font-display);font-size:1rem;color:var(--navy);margin-bottom:.5rem}
+    .rec-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+    .download-section{background:var(--navy);border-radius:14px;padding:2.5rem;margin-top:3rem;border:1px solid rgba(201,168,76,.2)}
+    .download-section h2{color:var(--white);border-bottom-color:rgba(201,168,76,.2);margin-bottom:1rem}
+    .download-section p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem}
+    .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+    .download-btn{display:inline-flex;align-items:center;gap:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.88rem;font-weight:500;padding:.75rem 1.5rem;border-radius:var(--radius);font-family:var(--font-body);text-decoration:none;transition:all .25s ease}
+    .download-btn:hover{background:var(--gold);color:var(--navy)}
+
+    .dual-label{display:inline-flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .label-badge{background:var(--navy);color:var(--gold);font-size:.75rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
+
+    @media(max-width:700px){.eda-grid,.rec-grid,.kpi-grid{grid-template-columns:1fr 1fr}.prep-steps{grid-template-columns:1fr 1fr}}
+    @media(max-width:450px){.kpi-grid,.prep-steps{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
+
   <nav id="navbar" class="scrolled">
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">NAF</a>
       <ul class="nav-links">
-        <li><a href="../index.html#projects">← All Projects</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">All Projects</a></li>
       </ul>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
@@ -21,12 +72,13 @@
 
   <div class="project-page-hero">
     <div class="container">
-      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
-      <h1>Predictive Analytics & Machine Learning</h1>
-      <p>End-to-end supervised and unsupervised ML pipelines — from raw data to model evaluation — covering regression, classification, and clustering with full feature engineering and hyperparameter tuning.</p>
+      <a href="../index.html#projects" class="back-link">Back to Projects</a>
+      <h1>Predicting Road Accident Severity in the UK</h1>
+      <p>A full predictive analytics and machine learning pipeline on 307,973 UK police-reported road accidents, comparing CART, Random Forest, and Logistic Regression to classify accident severity as Slight, Serious, or Fatal.</p>
       <div class="project-meta-badges">
-        <span>🤖 ML Pipeline — 2025</span>
-        <span>Python</span><span>scikit-learn</span><span>Regression</span><span>Clustering</span>
+        <span>BDM500 - Predictive Analysis · December 2025</span>
+        <span>Python</span><span>Random Forest</span><span>CART</span>
+        <span>Logistic Regression</span><span>Box-Cox</span><span>Feature Importance</span>
       </div>
     </div>
   </div>
@@ -34,60 +86,208 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-section">
-        <h2>Project Overview</h2>
-        <p>This project demonstrates end-to-end machine learning proficiency by building, comparing, and evaluating multiple model types on real datasets. Each pipeline covers the full workflow: data loading and cleaning, exploratory analysis, feature engineering, model training, evaluation, and interpretation of results.</p>
+      <!-- DUAL LABEL -->
+      <div class="dual-label">
+        <span class="label-badge">Predictive Analytics</span>
+        <span class="label-badge">Machine Learning</span>
       </div>
 
+      <!-- KEY METRICS -->
       <div class="project-section">
-        <h2>Models & Techniques Covered</h2>
-        <ul>
-          <li><strong>Supervised — Regression:</strong> Linear Regression, Ridge, Lasso; RMSE and R² evaluation</li>
-          <li><strong>Supervised — Classification:</strong> Logistic Regression, Decision Tree, Random Forest, KNN; accuracy, precision, recall, F1</li>
-          <li><strong>Unsupervised — Clustering:</strong> K-Means, DBSCAN; elbow method, silhouette scores</li>
-          <li><strong>Feature Engineering:</strong> Encoding, scaling, polynomial features, feature selection</li>
-          <li><strong>Hyperparameter Tuning:</strong> GridSearchCV, cross-validation</li>
-        </ul>
-      </div>
-
-      <div class="project-section">
-        <h2>Code Highlights</h2>
-        <div class="code-block"><code>
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
-
-pipeline = Pipeline([
-    ('scaler', StandardScaler()),
-    ('clf', RandomForestClassifier(random_state=42))
-])
-
-param_grid = {
-    'clf__n_estimators': [50, 100, 200],
-    'clf__max_depth': [None, 5, 10],
-}
-
-grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='f1_weighted')
-grid_search.fit(X_train, y_train)
-print("Best params:", grid_search.best_params_)
-        </code></div>
-
-        <div class="placeholder-viz">
-          <span class="viz-icon">📉</span>
-          <strong>Model Comparison Chart</strong><br>
-          ✏️ Replace with your actual model performance comparison visualization.
+        <h2>Key Results</h2>
+        <div class="metric-cards">
+          <div class="metric-card"><span class="metric-value">~85%</span><span class="metric-label">Accuracy - All Models</span></div>
+          <div class="metric-card"><span class="metric-value">307,973</span><span class="metric-label">UK Accident Records</span></div>
+          <div class="metric-card"><span class="metric-value">0.376</span><span class="metric-label">Random Forest Precision (Best)</span></div>
+          <div class="metric-card"><span class="metric-value">86%</span><span class="metric-label">Slight Accidents (Class Imbalance)</span></div>
         </div>
       </div>
 
+      <!-- PROBLEM STATEMENT -->
       <div class="project-section">
-        <h2>Key Takeaways</h2>
+        <h2>Business Problem</h2>
+        <p>Road accidents cost lives, money, and emergency resources. If we can understand when and where severe accidents are most likely to happen, authorities can allocate resources more effectively and prevent fatalities.</p>
+        <p><strong>Core question:</strong> Can we predict whether a UK road accident will be Slight, Serious, or Fatal based on known conditions at the time of the incident?</p>
+
+        <div class="kpi-grid" style="margin-top:1.5rem;">
+          <div class="kpi-card"><span class="kpi-value">86%</span><span class="kpi-label">Accidents are Slight</span></div>
+          <div class="kpi-card"><span class="kpi-value">1.4%</span><span class="kpi-label">Accidents are Fatal</span></div>
+          <div class="kpi-card"><span class="kpi-value">76%</span><span class="kpi-label">Happen in Urban Areas</span></div>
+          <div class="kpi-card"><span class="kpi-value">1.36</span><span class="kpi-label">Avg Casualties per Accident</span></div>
+        </div>
+
+        <div class="insight-box" style="margin-top:1rem;">
+          <strong>Key challenge:</strong> The severe and fatal classes are rare (class imbalance), meaning accuracy alone is a misleading metric. Precision, Recall, and F1-score are the true performance indicators - and the data requires balancing before operational deployment.
+        </div>
+      </div>
+
+      <!-- DATA PREPARATION -->
+      <div class="project-section">
+        <h2>Data Preparation</h2>
+        <p>Source: UK police-reported road accidents dataset, 307,973 records. Features include road and lighting conditions, weather, location (lat/long), number of vehicles and casualties, time and day, and urban vs rural area.</p>
+
+        <div class="prep-steps">
+          <div class="prep-step"><div class="step-num">1</div><div class="step-title">Cleaned Dataset</div><div class="step-desc">Removed duplicates, dropped irrelevant columns, handled missing values</div></div>
+          <div class="prep-step"><div class="step-num">2</div><div class="step-title">Fixed Timestamps</div><div class="step-desc">Parsed datetime fields, extracted month and year as model features</div></div>
+          <div class="prep-step"><div class="step-num">3</div><div class="step-title">Encoded Categories</div><div class="step-desc">Label-encoded all categorical features for ML compatibility</div></div>
+          <div class="prep-step"><div class="step-num">4</div><div class="step-title">Box-Cox Transform</div><div class="step-desc">Applied Box-Cox (lambda=0.0163) to correct right skew in numerical features</div></div>
+          <div class="prep-step"><div class="step-num">5</div><div class="step-title">Feature Selection</div><div class="step-desc">Removed low-predictive-value variables; retained 17 most informative features</div></div>
+          <div class="prep-step"><div class="step-num">6</div><div class="step-title">Train/Test Split</div><div class="step-desc">80/20 stratified split (random_state=42) to preserve class distribution</div></div>
+        </div>
+
+        <div class="code-block"><code>
+# Box-Cox transformation to correct right skew
+from scipy.stats import boxcox
+
+df['Number_of_Vehicles_boxcox'], fitted_lambda = boxcox(df['Number_of_Vehicles'] + 1)
+print("Box-Cox lambda:", fitted_lambda)
+# lambda = 0.0163 (close to 0 = log-like transformation)
+# Confirms significant non-normality in the original distribution
+
+# Label encode all categorical features
+categorical_features = [col for col in df.select_dtypes(include='object').columns
+                        if col != 'Accident_Severity']
+for col in categorical_features:
+    df[col] = le.fit_transform(df[col].astype(str))
+
+# Stratified 80/20 split
+X = df.drop(['Accident_Severity', 'Accident Date'], axis=1)
+y = df['Accident_Severity']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+        </code></div>
+      </div>
+
+      <!-- EDA -->
+      <div class="project-section">
+        <h2>Exploratory Data Analysis</h2>
+        <p>EDA revealed that severity is heavily skewed toward Slight accidents, most incidents occur on weekdays, and location and time are stronger predictors than weather or road surface.</p>
+
+        <div class="eda-grid">
+          <div class="eda-cell">
+            <img src="../assets/images/accident-severity-count.png" alt="Accident Severity Count" />
+            <div class="eda-caption"><strong>Severe Class Imbalance</strong>86% of accidents are Slight, ~12.6% are Serious, and only 1.4% are Fatal. This extreme imbalance means accuracy alone is misleading - the model must be evaluated on precision, recall, and F1.</div>
+          </div>
+          <div class="eda-cell">
+            <img src="../assets/images/accident-day-of-week.png" alt="Accidents by Day of Week" />
+            <div class="eda-caption"><strong>Weekday Concentration - Peak on Friday</strong>Most accidents occur on weekdays with Friday being the busiest day. Sunday has the lowest count, confirming that commuter traffic patterns drive accident frequency.</div>
+          </div>
+          <div class="eda-cell">
+            <img src="../assets/images/accident-correlation.png" alt="Correlation Heatmap" />
+            <div class="eda-caption"><strong>Location and Time are Key Correlates</strong>Latitude, Longitude, and Time show the strongest correlations with severity. Weather and road surface show weaker relationships than expected - a counterintuitive but important finding.</div>
+          </div>
+          <div class="eda-cell">
+            <img src="../assets/images/accident-feature-importance.png" alt="Top 15 Feature Importances" />
+            <div class="eda-caption"><strong>Longitude, Latitude, and Time Lead</strong>The Random Forest confirms that geographic location (Longitude 0.159, Latitude 0.157) and time (0.155) are the top predictors. Local Authority District and Accident Month follow, while Weather ranks much lower.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODELING -->
+      <div class="project-section">
+        <h2>Predictive Modeling</h2>
+        <p>Three classifiers were trained and compared on accuracy, precision, recall, and F1-score. All models used the same 17 engineered features and 80/20 stratified split.</p>
+
+        <div class="code-block"><code>
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+
+# CART Decision Tree
+cart = DecisionTreeClassifier(random_state=42)
+cart.fit(X_train, y_train)
+y_pred_cart = cart.predict(X_test)
+
+# Random Forest
+rf = RandomForestClassifier(random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_test)
+
+# Logistic Regression
+lr = LogisticRegression(max_iter=300, n_jobs=-1)
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+
+# Evaluation function
+def evaluate(model_name, y_true, y_pred):
+    print(f"=== {model_name} ===")
+    print("Accuracy :", accuracy_score(y_true, y_pred))
+    print("Precision:", precision_score(y_true, y_pred, average='macro'))
+    print("Recall   :", recall_score(y_true, y_pred, average='macro'))
+    print("F1 Score :", f1_score(y_true, y_pred, average='macro'))
+        </code></div>
+      </div>
+
+      <!-- MODEL COMPARISON -->
+      <div class="project-section">
+        <h2>Model Comparison & Results</h2>
+        <table class="model-table">
+          <thead>
+            <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CART Decision Tree</td><td>85.47%</td><td>0.314</td><td>0.252</td><td>0.238</td></tr>
+            <tr class="best"><td>Random Forest - Best Model</td><td>85.66%</td><td>0.376</td><td>0.253</td><td>0.238</td></tr>
+            <tr><td>Logistic Regression</td><td>85.77%</td><td>0.214</td><td>0.250</td><td>0.231</td></tr>
+          </tbody>
+        </table>
+
         <ul>
-          <li>Random Forest consistently outperformed single-tree models with proper hyperparameter tuning</li>
-          <li>Feature scaling had significant impact on distance-based models (KNN, SVM)</li>
-          <li>K-Means required careful initialization; DBSCAN was more robust to outliers</li>
-          <li>Cross-validation prevented overfitting and gave reliable generalization estimates</li>
+          <li><strong>All models achieve ~85% accuracy</strong> - but this is misleading due to class imbalance. A model predicting "Slight" every time would also score ~86%.</li>
+          <li><strong>Random Forest has the strongest balanced performance</strong> - highest precision (0.376) meaning it makes fewer false positive severe predictions.</li>
+          <li><strong>Logistic Regression struggles with non-linear relationships</strong> - lowest precision despite marginally higher accuracy.</li>
+          <li><strong>CART is stable but less consistent</strong> than the ensemble Random Forest across data subsets.</li>
         </ul>
+
+        <div class="insight-box">
+          <strong>Feature Importance finding:</strong> The model revealed that location (Longitude 0.159, Latitude 0.157) and time (0.155) are the strongest predictors of severity - not weather or road surface as commonly assumed. This is a counterintuitive and actionable finding for road safety planning.
+        </div>
+      </div>
+
+      <!-- RECOMMENDATIONS -->
+      <div class="project-section">
+        <h2>Key Findings & Recommendations</h2>
+        <div class="rec-grid">
+          <div class="rec-card">
+            <h4>Target High-Risk Locations</h4>
+            <p>Since location (lat/long and district) is the top predictor, authorities should map high-severity accident zones and concentrate infrastructure improvements and speed controls in those specific areas.</p>
+          </div>
+          <div class="rec-card">
+            <h4>Strengthen Lighting and Speed Controls</h4>
+            <p>In areas with historically high serious-accident rates, improve street lighting and enforce speed limits more strictly - both features the model identifies as having moderate predictive power.</p>
+          </div>
+          <div class="rec-card">
+            <h4>Seasonal Safety Campaigns</h4>
+            <p>Accident Month is the 5th most important feature. Deploy targeted road safety campaigns and increased enforcement during peak accident months identified by the model.</p>
+          </div>
+          <div class="rec-card">
+            <h4>Real-Time Prediction Dashboard</h4>
+            <p>Deploy Random Forest as a decision-support tool in dispatch systems. When an incident is reported, the model can instantly estimate likely severity to help route the appropriate emergency response.</p>
+          </div>
+        </div>
+
+        <p style="margin-top:1.5rem;"><strong>Future enhancements:</strong></p>
+        <ul>
+          <li>Apply SMOTE oversampling to improve Fatal and Serious class recall</li>
+          <li>Try advanced models like XGBoost or LightGBM</li>
+          <li>Build an interactive geospatial heatmap dashboard</li>
+          <li>Add socioeconomic and road infrastructure features for richer prediction</li>
+        </ul>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div class="download-section">
+        <h2>Project Files</h2>
+        <p>Download the full Jupyter notebook and presentation slides.</p>
+        <div class="download-buttons">
+          <a href="../assets/files/UK_Accident_Severity_Notebook.ipynb" download class="download-btn">
+            <span>📓</span> Download Notebook (.ipynb)
+          </a>
+          <a href="../assets/files/UK_Accident_Severity_Presentation.pdf" target="_blank" class="download-btn">
+            <span>📊</span> View Presentation (.pdf)
+          </a>
+        </div>
       </div>
 
     </div>
@@ -97,8 +297,10 @@ print("Best params:", grid_search.best_params_)
     <div class="container footer-inner">
       <div class="footer-name">Naila Ahmad Farooqi</div>
       <div class="footer-links">
-        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html">Portfolio</a>
+        <div class="footer-links">
         <a href="../index.html#projects">All Projects</a>
+        <a href="mailto:nailafarooqi394@gmail.com">Email</a>
       </div>
     </div>
   </footer>
