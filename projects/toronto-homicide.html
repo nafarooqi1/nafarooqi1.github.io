@@ -64,7 +64,6 @@
       <p>Business Analytics Project (BDA800) - A CRISP-DM analysis of 21 years of Toronto Police Service homicide data, combining descriptive mapping, predictive classification, and prescriptive recommendations for public safety resource allocation.</p>
       <div class="project-meta-badges">
         <span>Business Analytics - BDA800 · April 2026</span>
-        <span>Group 7</span>
         <span>Python</span><span>scikit-learn</span>
         <span>CRISP-DM</span><span>Random Forest</span><span>Decision Tree</span>
       </div>
@@ -88,9 +87,9 @@
         <h2>Project Overview & Problem Statement</h2>
         <p>This project analyzed spatial, temporal, and categorical patterns of homicide incidents in Toronto (2004-2025) using the Toronto Police Service open dataset. The goal was to move beyond reactive policing by building a data-driven system that supports proactive resource allocation and better emergency dispatch decisions.</p>
         <div class="three-col">
-          <div class="insight-box"><strong>Descriptive</strong>Map 21 years of crime patterns: trends, geographic hotspots, and seasonality across Toronto's 158 neighbourhoods.</div>
-          <div class="insight-box"><strong>Predictive</strong>ML models to classify homicide type (Shooting / Stabbing / Other) from location and temporal signals.</div>
-          <div class="insight-box"><strong>Prescriptive</strong>Actionable recommendations for Toronto Police Service resource allocation and dispatch optimization.</div>
+          <div class="insight-box"><strong>Descriptive:</strong> Map 21 years of crime patterns: trends, geographic hotspots, and seasonality across Toronto's 158 neighbourhoods.</div>
+          <div class="insight-box"><strong>Predictive:</strong> ML models to classify homicide type (Shooting / Stabbing / Other) from location and temporal signals.</div>
+          <div class="insight-box"><strong>Prescriptive:</strong> Actionable recommendations for Toronto Police Service resource allocation and dispatch optimization.</div>
         </div>
         <p><strong>Research questions:</strong></p>
         <ul>
@@ -103,7 +102,7 @@
       </div>
 
       <div class="project-section">
-        <h2>Methodology - CRISP-DM Framework</h2>
+        <h2>Methodology: CRISP-DM Framework</h2>
         <div class="crisp-grid">
           <div class="crisp-step"><div class="step-title">Business Understanding</div><div class="step-desc">Crime pattern analysis - understand geographic hotspots, temporal trends, and homicide type classification</div></div>
           <div class="crisp-step"><div class="step-title">Data Understanding</div><div class="step-desc">Explore 1,526 homicide records across 18 features spanning 2004-2025 from TPS open data portal</div></div>
@@ -150,28 +149,38 @@ X_train, X_test, y_train, y_test = train_test_split(
         <h2>Exploratory Data Analysis</h2>
         <p>EDA focused on four dimensions: geographic hotspots, homicide type distribution, temporal patterns, and type trends over time.</p>
         <div class="eda-grid">
+
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/homicide-annual-trend.png" alt="Annual Trend" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">📊</span><strong>Annual Homicide Trends (2004-2025)</strong>Save from notebook as: assets/images/homicide-annual-trend.png</div>
-            <div class="eda-caption"><strong>Peak: 98 Homicides in 2018</strong>Rates fluctuate over time with a notable 2018 peak. The 3-year rolling trend shows decline since 2018, but rates remain elevated vs. the 2010-2015 period.</div>
+            <img src="../assets/images/homicide-annual-trend.png" alt="Annual Homicide Trends 2004-2025" />
+            <div class="eda-caption"><strong>Annual Trends - Peak: 98 Homicides in 2018</strong>Rates fluctuate with a notable 2018 peak. The 3-year rolling trend shows decline since 2018 but rates remain elevated compared to the 2010-2015 period.</div>
           </div>
+
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/homicide-type-dist.png" alt="Type Distribution" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">🔫</span><strong>Distribution of Homicide Types</strong>Save from notebook as: assets/images/homicide-type-dist.png</div>
-            <div class="eda-caption"><strong>Shootings Dominate at 52%</strong>Shooting: 790 cases (~52%), Other: 381, Stabbing: 355. This class imbalance directly shaped the model evaluation strategy - accuracy alone is misleading.</div>
+            <img src="../assets/images/homicide-type-dist.png" alt="Distribution of Homicide Types" />
+            <div class="eda-caption"><strong>Homicide Type Distribution - Shootings Dominate at 52%</strong>Shooting: 790 cases (~52%), Other: 381, Stabbing: 355. This class imbalance directly shaped the model evaluation strategy.</div>
           </div>
+
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/homicide-temporal.png" alt="Temporal Patterns" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">📅</span><strong>Incidents by Month and Day of Week</strong>Save from notebook as: assets/images/homicide-temporal.png</div>
-            <div class="eda-caption"><strong>July-August Spike, Weekend Elevation</strong>Incidents peak in July-August and are consistently higher Friday-Sunday, enabling predictable proactive patrol planning.</div>
+            <img src="../assets/images/homicide-temporal-monthy.png" alt="Incidents by Month" />
+            <div class="eda-caption"><strong>Monthly Pattern - July to September Peak</strong>Incidents spike noticeably in July, August, and September due to increased outdoor social activity, enabling predictable seasonal patrol planning.</div>
           </div>
+
           <div class="eda-cell">
-            <!-- Replace with: <img src="../assets/images/homicide-hotspots.png" alt="Geographic Hotspots" /> -->
-            <div class="eda-placeholder"><span class="viz-icon">🗺️</span><strong>Top Neighbourhoods and Division Hotspots</strong>Save from notebook as: assets/images/homicide-hotspots.png</div>
-            <div class="eda-caption"><strong>Crime is Geographically Clustered</strong>Mount Olive-Silverstone-Jamestown leads with 44+ incidents. Divisions D31, D51, and D42 account for a disproportionate share of all cases city-wide.</div>
+            <img src="../assets/images/homicide-temporal-days.png" alt="Incidents by Day of Week" />
+            <div class="eda-caption"><strong>Day of Week - Weekend Elevation (Friday to Sunday)</strong>Incidents are consistently higher on Friday, Saturday, and Sunday compared to weekdays, supporting targeted weekend patrol increases.</div>
           </div>
+
+          <div class="eda-cell">
+            <img src="../assets/images/homicide-neighbourhood.png" alt="Top 10 Neighbourhoods" />
+            <div class="eda-caption"><strong>Top 10 Neighbourhoods - Mount Olive Leads with 44+ Cases</strong>Homicides are heavily concentrated in specific neighbourhoods. Mount Olive-Silverstone-Jamestown, Moss Park, and Glenfield-Jane Heights account for the highest counts over 21 years.</div>
+          </div>
+
+          <div class="eda-cell">
+            <img src="../assets/images/homicide-police-division.png" alt="Incidents by Police Division" />
+            <div class="eda-caption"><strong>Division Hotspots - D31, D51, D42 Lead</strong>Division D31 (North York/West End) leads with 160 incidents, followed by D51 (Downtown East) and D42 (Scarborough/North East). Crime is geographically clustered, not city-wide.</div>
+          </div>
+
         </div>
-        <p style="font-size:.85rem;color:var(--muted);">To add charts: save each plot from the notebook as a PNG, place in <code>assets/images/</code>, and replace the placeholder blocks with <code>&lt;img&gt;</code> tags.</p>
       </div>
 
       <div class="project-section">
