@@ -3,11 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Toronto Homicide Analysis — Naila Ahmad Farooqi</title>
+  <title>Toronto Homicide Patterns Analysis - Naila Ahmad Farooqi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .model-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem}
+    .model-table th{background:var(--navy);color:var(--gold);padding:.75rem 1rem;text-align:left;font-weight:600}
+    .model-table td{padding:.7rem 1rem;border-bottom:1px solid var(--cream-2);color:var(--muted)}
+    .model-table tr:last-child td{border-bottom:none}
+    .model-table tr.best td{color:var(--navy);font-weight:600;background:rgba(201,168,76,.08)}
+    .eda-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.5rem 0}
+    .eda-cell{background:var(--cream-2);border-radius:10px;overflow:hidden;border:1px solid var(--cream-2)}
+    .eda-cell img{width:100%;display:block}
+    .eda-caption{padding:.75rem 1rem;font-size:.82rem;color:var(--muted);line-height:1.5}
+    .eda-caption strong{color:var(--navy);display:block;margin-bottom:.25rem}
+    .eda-placeholder{background:var(--cream-2);border:2px dashed #ccc;border-radius:10px;padding:2rem 1rem;text-align:center;color:var(--muted);font-size:.85rem}
+    .eda-placeholder .viz-icon{font-size:2rem;display:block;margin-bottom:.5rem}
+    .crisp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+    .crisp-step{background:var(--navy);color:var(--white);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .crisp-step .step-title{font-size:.9rem;font-weight:600;color:var(--gold);margin-bottom:.5rem}
+    .crisp-step .step-desc{font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5}
+    .insight-box{background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+    .insight-box strong{color:var(--navy)}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1.5rem 0}
+    .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+    .rec-card{background:var(--cream-2);border-radius:10px;padding:1.5rem;border-left:3px solid var(--gold)}
+    .rec-card h4{font-family:var(--font-display);font-size:1rem;color:var(--navy);margin-bottom:.5rem}
+    .rec-card p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+    .rec-card .rec-insight{font-size:.8rem;color:var(--gold);font-weight:500}
+    .download-section{background:var(--navy);border-radius:14px;padding:2.5rem;margin-top:3rem;border:1px solid rgba(201,168,76,.2)}
+    .download-section h2{color:var(--white);border-bottom-color:rgba(201,168,76,.2);margin-bottom:1rem}
+    .download-section p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem}
+    .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+    .download-btn{display:inline-flex;align-items:center;gap:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.88rem;font-weight:500;padding:.75rem 1.5rem;border-radius:var(--radius);font-family:var(--font-body);text-decoration:none;transition:all .25s ease}
+    .download-btn:hover{background:var(--gold);color:var(--navy)}
+    @media(max-width:700px){.eda-grid,.rec-grid,.three-col{grid-template-columns:1fr}.crisp-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:450px){.crisp-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
@@ -16,7 +50,8 @@
       <a href="../index.html" class="nav-logo">NAF</a>
       <ul class="nav-links">
         <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#projects">← All Projects</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">All Projects</a></li>
       </ul>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
@@ -24,13 +59,14 @@
 
   <div class="project-page-hero">
     <div class="container">
-      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
-      <h1>Toronto Homicide Patterns Analysis</h1>
-      <p>Comprehensive EDA and machine learning analysis of Toronto Police Service homicide records from 2004–2025, identifying temporal patterns, geographic concentrations, and building classification models to predict incident type.</p>
+      <a href="../index.html#projects" class="back-link">Back to Projects</a>
+      <h1>Toronto Homicide Patterns Analysis (2004-2025)</h1>
+      <p>Business Analytics Project (BDA800) - A CRISP-DM analysis of 21 years of Toronto Police Service homicide data, combining descriptive mapping, predictive classification, and prescriptive recommendations for public safety resource allocation.</p>
       <div class="project-meta-badges">
-        <span>🔍 Business Analytics — 2026</span>
-        <span>Python</span><span>EDA</span><span>CRISP-DM</span>
-        <span>Random Forest</span><span>Decision Tree</span>
+        <span>Business Analytics - BDA800 · April 2026</span>
+        <span>Group 7</span>
+        <span>Python</span><span>scikit-learn</span>
+        <span>CRISP-DM</span><span>Random Forest</span><span>Decision Tree</span>
       </div>
     </div>
   </div>
@@ -41,85 +77,198 @@
       <div class="project-section">
         <h2>Key Results</h2>
         <div class="metric-cards">
-          <div class="metric-card">
-            <span class="metric-value">56.21%</span>
-            <span class="metric-label">Random Forest Accuracy</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">83%</span>
-            <span class="metric-label">Recall (Shooting Classification)</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">52%</span>
-            <span class="metric-label">Shootings as % of Cases</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">3</span>
-            <span class="metric-label">High-Concentration Divisions</span>
-          </div>
+          <div class="metric-card"><span class="metric-value">56.21%</span><span class="metric-label">Random Forest Accuracy</span></div>
+          <div class="metric-card"><span class="metric-value">83%</span><span class="metric-label">Shooting Recall (Best Class)</span></div>
+          <div class="metric-card"><span class="metric-value">1,526</span><span class="metric-label">Incidents Analyzed</span></div>
+          <div class="metric-card"><span class="metric-value">52%</span><span class="metric-label">Shootings of All Cases</span></div>
         </div>
       </div>
 
       <div class="project-section">
-        <h2>Problem Statement</h2>
-        <p>Understanding homicide patterns is critical for informed policing and community safety policy. This project applied the CRISP-DM framework to 21 years of Toronto homicide data, aiming to surface hidden patterns by time, location, and incident type — and to evaluate whether machine learning could reliably classify homicide types for proactive resource deployment.</p>
-      </div>
-
-      <div class="project-section">
-        <h2>Methodology (CRISP-DM)</h2>
+        <h2>Project Overview & Problem Statement</h2>
+        <p>This project analyzed spatial, temporal, and categorical patterns of homicide incidents in Toronto (2004-2025) using the Toronto Police Service open dataset. The goal was to move beyond reactive policing by building a data-driven system that supports proactive resource allocation and better emergency dispatch decisions.</p>
+        <div class="three-col">
+          <div class="insight-box"><strong>Descriptive</strong>Map 21 years of crime patterns: trends, geographic hotspots, and seasonality across Toronto's 158 neighbourhoods.</div>
+          <div class="insight-box"><strong>Predictive</strong>ML models to classify homicide type (Shooting / Stabbing / Other) from location and temporal signals.</div>
+          <div class="insight-box"><strong>Prescriptive</strong>Actionable recommendations for Toronto Police Service resource allocation and dispatch optimization.</div>
+        </div>
+        <p><strong>Research questions:</strong></p>
         <ul>
-          <li><strong>Business Understanding:</strong> Identify geographic hotspots, seasonal trends, and classify incident types</li>
-          <li><strong>Data Understanding:</strong> TPS homicide records 2004–2025; EDA to assess distributions, missing values, and outliers</li>
-          <li><strong>Data Preparation:</strong> Encoding categorical variables, handling nulls, class balancing</li>
-          <li><strong>Modeling:</strong> Decision Tree and Random Forest classifiers (scikit-learn); 80/20 train-test split</li>
-          <li><strong>Evaluation:</strong> Accuracy, precision, recall, F1; compared to 54.25% baseline</li>
-          <li><strong>Deployment:</strong> Findings presented as policy-oriented recommendations</li>
+          <li>Which neighbourhoods have the highest and lowest homicide concentrations?</li>
+          <li>What type of homicide occurs most frequently, and how has this changed over time?</li>
+          <li>Is there a specific month or day of the week when incidents occur most frequently?</li>
+          <li>Which year had the highest homicide rate in Toronto?</li>
+          <li>Are incidents geographically clustered, and do clusters correspond to specific police divisions?</li>
         </ul>
       </div>
 
       <div class="project-section">
-        <h2>Code Highlights</h2>
-        <div class="code-block">
-          <code>
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+        <h2>Methodology - CRISP-DM Framework</h2>
+        <div class="crisp-grid">
+          <div class="crisp-step"><div class="step-title">Business Understanding</div><div class="step-desc">Crime pattern analysis - understand geographic hotspots, temporal trends, and homicide type classification</div></div>
+          <div class="crisp-step"><div class="step-title">Data Understanding</div><div class="step-desc">Explore 1,526 homicide records across 18 features spanning 2004-2025 from TPS open data portal</div></div>
+          <div class="crisp-step"><div class="step-title">Data Preparation</div><div class="step-desc">Cleaning, label encoding, column removal, feature selection, stratified 80/20 train-test split</div></div>
+          <div class="crisp-step"><div class="step-title">Modeling</div><div class="step-desc">Decision Tree and Random Forest classifiers trained on 7 geographic and temporal features</div></div>
+          <div class="crisp-step"><div class="step-title">Evaluation</div><div class="step-desc">Accuracy, F1-score, confusion matrix, 5-fold cross-validation vs. Zero Rule baseline</div></div>
+          <div class="crisp-step"><div class="step-title">Deployment</div><div class="step-desc">Policy recommendations for TPS dispatch systems and proactive patrol planning</div></div>
+        </div>
+      </div>
 
+      <div class="project-section">
+        <h2>Dataset & Preprocessing</h2>
+        <p>Source: Toronto Police Service Homicide Open Data. 1,526 records, 18 features, 21 years - zero missing values and zero duplicates after cleaning.</p>
+        <ul>
+          <li>Converted <code>OCC_DATE</code> from string to datetime; validated all coordinates within Toronto bounds</li>
+          <li>Dropped: <code>OBJECTID</code>, <code>EVENT_UNIQUE_ID</code>, <code>HOOD_140</code>, <code>NEIGHBOURHOOD_140</code>, projected x/y coordinates</li>
+          <li>Label-encoded: <code>DIVISION</code>, <code>NEIGHBOURHOOD_158</code>, <code>OCC_MONTH</code>, <code>OCC_DOW</code></li>
+          <li>Target: <code>HOMICIDE_TYPE</code> (3 classes: Shooting=1, Stabbing=2, Other=0)</li>
+          <li>80/20 stratified split (random_state=42): 1,220 training / 306 test records</li>
+        </ul>
+        <div class="code-block"><code>
+# Drop unnecessary columns
+df = df.drop(columns=['OBJECTID', 'EVENT_UNIQUE_ID',
+                       'HOOD_140', 'NEIGHBOURHOOD_140', 'x', 'y'])
+
+# Label encode categorical features
+df_model['HOMICIDE_TYPE_ENC'] = le_target.fit_transform(df_model['HOMICIDE_TYPE'])
+df_model['DIVISION_ENC']      = le_div.fit_transform(df_model['DIVISION'])
+df_model['NEIGHBOURHOOD_ENC'] = le_neigh.fit_transform(df_model['NEIGHBOURHOOD_158'])
+
+# 7 predictive features
+X = df_model[['DIVISION_ENC', 'NEIGHBOURHOOD_ENC', 'OCC_YEAR',
+              'OCC_MONTH', 'OCC_DOW', 'LAT_WGS84', 'LONG_WGS84']]
+y = df_model['HOMICIDE_TYPE_ENC']
+
+# Stratified 80/20 split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
+        </code></div>
+      </div>
 
-# Random Forest
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-print(classification_report(y_test, rf.predict(X_test)))
-
-# Accuracy: 56.21% | Recall (shooting): 83%
-          </code>
+      <div class="project-section">
+        <h2>Exploratory Data Analysis</h2>
+        <p>EDA focused on four dimensions: geographic hotspots, homicide type distribution, temporal patterns, and type trends over time.</p>
+        <div class="eda-grid">
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/homicide-annual-trend.png" alt="Annual Trend" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">📊</span><strong>Annual Homicide Trends (2004-2025)</strong>Save from notebook as: assets/images/homicide-annual-trend.png</div>
+            <div class="eda-caption"><strong>Peak: 98 Homicides in 2018</strong>Rates fluctuate over time with a notable 2018 peak. The 3-year rolling trend shows decline since 2018, but rates remain elevated vs. the 2010-2015 period.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/homicide-type-dist.png" alt="Type Distribution" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">🔫</span><strong>Distribution of Homicide Types</strong>Save from notebook as: assets/images/homicide-type-dist.png</div>
+            <div class="eda-caption"><strong>Shootings Dominate at 52%</strong>Shooting: 790 cases (~52%), Other: 381, Stabbing: 355. This class imbalance directly shaped the model evaluation strategy - accuracy alone is misleading.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/homicide-temporal.png" alt="Temporal Patterns" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">📅</span><strong>Incidents by Month and Day of Week</strong>Save from notebook as: assets/images/homicide-temporal.png</div>
+            <div class="eda-caption"><strong>July-August Spike, Weekend Elevation</strong>Incidents peak in July-August and are consistently higher Friday-Sunday, enabling predictable proactive patrol planning.</div>
+          </div>
+          <div class="eda-cell">
+            <!-- Replace with: <img src="../assets/images/homicide-hotspots.png" alt="Geographic Hotspots" /> -->
+            <div class="eda-placeholder"><span class="viz-icon">🗺️</span><strong>Top Neighbourhoods and Division Hotspots</strong>Save from notebook as: assets/images/homicide-hotspots.png</div>
+            <div class="eda-caption"><strong>Crime is Geographically Clustered</strong>Mount Olive-Silverstone-Jamestown leads with 44+ incidents. Divisions D31, D51, and D42 account for a disproportionate share of all cases city-wide.</div>
+          </div>
         </div>
+        <p style="font-size:.85rem;color:var(--muted);">To add charts: save each plot from the notebook as a PNG, place in <code>assets/images/</code>, and replace the placeholder blocks with <code>&lt;img&gt;</code> tags.</p>
+      </div>
 
-        <div class="placeholder-viz">
-          <span class="viz-icon">📊</span>
-          <strong>Homicide by Division / Monthly Trend Chart</strong><br>
-          Replace this with your actual visualization from the notebook.
+      <div class="project-section">
+        <h2>Modeling</h2>
+        <p><strong>Baseline - Zero Rule:</strong> Predicts "Shooting" for every instance. Achieves 54.25% accuracy - the performance floor any useful model must exceed.</p>
+        <div class="code-block"><code>
+from collections import Counter
+most_common_class = Counter(y_train).most_common(1)[0][0]
+y_pred_baseline   = [most_common_class] * len(y_test)
+print(f"Baseline Accuracy: {accuracy_score(y_test, y_pred_baseline):.4f}")
+# Output: 0.5425 — Most frequent class: 'Shooting'
+        </code></div>
+
+        <p><strong>Model 1 - Decision Tree (max_depth=5):</strong> Stable generalization but failed to surpass baseline due to class imbalance bias toward Shooting. Minority classes heavily misclassified.</p>
+        <div class="code-block"><code>
+dt = DecisionTreeClassifier(max_depth=5, random_state=42)
+dt.fit(X_train_processed, y_train)
+y_pred_dt = dt.predict(X_test_processed)
+print(classification_report(y_test, y_pred_dt))
+# Test Accuracy: 51.63% | CV Mean: 48.89% | CV Std: 0.0125
+        </code></div>
+
+        <p><strong>Model 2 - Random Forest (200 trees):</strong> Best model - captures complex nonlinear interactions between geographic and temporal features that a single tree cannot model.</p>
+        <div class="code-block"><code>
+rf = RandomForestClassifier(n_estimators=200, random_state=42)
+rf.fit(X_train_processed, y_train)
+y_pred_rf = rf.predict(X_test_processed)
+print(classification_report(y_test, y_pred_rf))
+# Test Accuracy: 56.21% | CV Mean: 52.29% | CV Std: 0.0159
+
+# 5-Fold Cross Validation
+rf_cv_scores = cross_val_score(rf_cv, X_cv_dt, y_cv, cv=skf, scoring='accuracy')
+print(f"Mean CV: {rf_cv_scores.mean():.4f} | Std: {rf_cv_scores.std():.4f}")
+        </code></div>
+      </div>
+
+      <div class="project-section">
+        <h2>Model Comparison & Results</h2>
+        <table class="model-table">
+          <thead>
+            <tr><th>Model</th><th>Test Accuracy</th><th>CV Mean (5-Fold)</th><th>CV Std</th><th>vs. Baseline</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Baseline (Zero Rule)</td><td>54.25%</td><td>-</td><td>-</td><td>-</td></tr>
+            <tr><td>Model 1: Decision Tree (max_depth=5)</td><td>51.63%</td><td>48.89%</td><td>0.0125</td><td>-2.62%</td></tr>
+            <tr class="best"><td>Model 2: Random Forest (200 trees) - Best</td><td>56.21%</td><td>52.29%</td><td>0.0159</td><td>+1.96%</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li><strong>Shooting (Strong):</strong> 137/166 correct - 83% recall. Dominant class with clearest feature boundary.</li>
+          <li><strong>Other (Weak):</strong> High confusion with other classes. Heterogeneous category lacking consistent signals.</li>
+          <li><strong>Stabbing (Weak):</strong> 13/64 correct - 20% recall. Severe feature overlap with Shooting and Other.</li>
+        </ul>
+        <div class="insight-box">
+          <strong>Why 56.21% is meaningful:</strong> The model classifies 3 types from 1,526 cases with severe class imbalance. Despite this challenge, it outperforms naive guessing, achieves 83% recall on the dominant class, and captures actionable geographic and temporal patterns for real-world dispatch support.
         </div>
       </div>
 
       <div class="project-section">
-        <h2>Key Findings</h2>
-        <ul>
-          <li>Shootings account for <strong>52% of all homicide cases</strong> — the dominant method over the 21-year period</li>
-          <li>Three police divisions — <strong>D31, D51, D42</strong> — account for a disproportionate concentration of incidents</li>
-          <li>Clear <strong>July–August seasonal spike</strong> identified consistently across years</li>
-          <li>Random Forest achieved <strong>56.21% accuracy</strong>, surpassing the 54.25% baseline, with 83% recall for shooting classification</li>
-          <li>High recall for shootings indicates the model is effective at flagging shooting incidents — valuable for resource pre-deployment</li>
-        </ul>
+        <h2>Key Findings & Prescriptive Recommendations</h2>
+        <div class="rec-grid">
+          <div class="rec-card">
+            <h4>Hyper-Local Resource Allocation</h4>
+            <p>Increase community policing in Divisions D31 (North York/West End), D51 (Downtown East), and D42 (Scarborough/North East). Deploy dedicated units in Mount Olive-Silverstone-Jamestown.</p>
+            <span class="rec-insight">21-year data shows these 3 divisions account for a disproportionate share of all homicides city-wide.</span>
+          </div>
+          <div class="rec-card">
+            <h4>Summer Safety Surge (July-August)</h4>
+            <p>Execute a proactive "Safety Surge" in Q3 each year with increased patrol presence and community engagement, especially on weekend evenings when risk is highest.</p>
+            <span class="rec-insight">Consistent July-August spike across all 21 years - stable, predictable, and plannable in advance.</span>
+          </div>
+          <div class="rec-card">
+            <h4>Firearm-Specific Prevention Programs</h4>
+            <p>Redirect resources toward gun buybacks, stronger enforcement against illegal firearms, and youth diversion efforts rather than generalized anti-violence programs.</p>
+            <span class="rec-insight">Shootings represent ~52% of all cases and are the primary driver of rising trends since 2016.</span>
+          </div>
+          <div class="rec-card">
+            <h4>Deploy Random Forest as Decision-Support Tool</h4>
+            <p>Integrate the model into TPS dispatch workflows to estimate likely homicide type in real time, enabling dispatchers to send the correct specialized unit faster.</p>
+            <span class="rec-insight">56.21% accuracy from location and time data alone meaningfully improves over naive dispatch decisions.</span>
+          </div>
+        </div>
+      </div>
 
-        <div class="placeholder-viz">
-          <span class="viz-icon">🗂️</span>
-          <strong>Feature Importance / Confusion Matrix</strong><br>
-          Replace with your actual model output visualizations.
+      <div class="download-section">
+        <h2>Project Files</h2>
+        <p>Download the full Jupyter notebook, presentation slides, and written report.</p>
+        <div class="download-buttons">
+          <a href="../assets/files/Toronto_Homicide_Notebook.ipynb" download class="download-btn">
+            <span>📓</span> Download Notebook (.ipynb)
+          </a>
+          <a href="../assets/files/Toronto_Homicide_Presentation.pdf" target="_blank" class="download-btn">
+            <span>📊</span> View Presentation (.pdf)
+          </a>
+          <a href="../assets/files/Toronto_Homicide_Report.pdf" target="_blank" class="download-btn">
+            <span>📄</span> View Report (.pdf)
+          </a>
         </div>
       </div>
 
@@ -130,8 +279,9 @@ print(classification_report(y_test, rf.predict(X_test)))
     <div class="container footer-inner">
       <div class="footer-name">Naila Ahmad Farooqi</div>
       <div class="footer-links">
-        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html">Portfolio</a>
         <a href="../index.html#projects">All Projects</a>
+        <a href="mailto:nailafarooqi394@gmail.com">Email</a>
       </div>
     </div>
   </footer>
