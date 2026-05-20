@@ -1,29 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Health Analytics — Naila Ahmad Farooqi</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Topic Classification of Medical Transcriptions - Naila Ahmad Farooqi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:1.5rem 0}
+    .approach-card{background:var(--navy);border-radius:12px;padding:1.5rem;border:1px solid rgba(201,168,76,.2)}
+    .approach-num{font-family:var(--font-display);font-size:2rem;color:var(--gold);line-height:1;margin-bottom:.5rem}
+    .approach-title{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.75rem}
+    .approach-desc{font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.6}
+
+    .model-table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:.88rem}
+    .model-table th{background:var(--navy);color:var(--gold);padding:.75rem 1rem;text-align:left;font-weight:600}
+    .model-table td{padding:.7rem 1rem;border-bottom:1px solid var(--cream-2);color:var(--muted)}
+    .model-table tr:last-child td{border-bottom:none}
+    .model-table tr.best td{color:var(--navy);font-weight:600;background:rgba(201,168,76,.08)}
+
+    .specialty-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin:1.5rem 0}
+    .specialty-card{background:var(--cream-2);border-radius:10px;padding:1.25rem;text-align:center;border-top:3px solid var(--gold)}
+    .specialty-name{font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:.6rem}
+    .specialty-terms{font-size:.72rem;color:var(--muted);line-height:1.6;font-style:italic}
+
+    .insight-box{background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+    .insight-box strong{color:var(--navy)}
+
+    .pipeline-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0}
+    .pipeline-step{background:var(--navy);color:var(--white);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .pipeline-step .step-num{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:.5rem}
+    .pipeline-step .step-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+    .pipeline-step .step-desc{font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+    .download-section{background:var(--navy);border-radius:14px;padding:2.5rem;margin-top:3rem;border:1px solid rgba(201,168,76,.2)}
+    .download-section h2{color:var(--white);margin-bottom:1rem}
+    .download-section p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem}
+    .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+    .download-btn{display:inline-flex;align-items:center;gap:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.88rem;font-weight:500;padding:.75rem 1.5rem;border-radius:var(--radius);font-family:var(--font-body);text-decoration:none;transition:all .25s ease}
+    .download-btn:hover{background:var(--gold);color:var(--navy)}
+
+    @media(max-width:900px){.specialty-grid{grid-template-columns:repeat(3,1fr)}.approach-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){.specialty-grid{grid-template-columns:1fr 1fr}.pipeline-steps{grid-template-columns:1fr 1fr}}
+  </style>
 </head>
 <body>
+
   <nav id="navbar" class="scrolled">
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">NAF</a>
-      <ul class="nav-links"><li><a href="../index.html#projects">← All Projects</a></li></ul>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">All Projects</a></li>
+      </ul>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <div class="project-page-hero">
     <div class="container">
-      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
-      <h1>Health Analytics Project</h1>
-      <p>Clinical pattern discovery using statistical analysis and NLP in Python — surfacing insights from healthcare datasets to support data-driven decisions in clinical settings.</p>
+      <a href="../index.html#projects" class="back-link">Back to Projects</a>
+      <h1>Topic Classification of Medical Transcriptions</h1>
+      <p>Health Analytics project (BDA700) - A comparison of Text-Only, NER-Enhanced, and Negation-Aware classification pipelines on 1,000 medical transcription samples across 5 clinical specialties using ScispaCy and NegEx.</p>
       <div class="project-meta-badges">
-        <span>🏥 Health Analytics — 2025</span><span>Python</span><span>NLP</span><span>Statistics</span><span>Healthcare</span>
+        <span>BDA700 - Health Analytics · December 2025</span>
+        <span>Python</span><span>ScispaCy</span><span>NegEx</span>
+        <span>TF-IDF</span><span>SVM</span><span>NLP</span>
       </div>
     </div>
   </div>
@@ -31,57 +76,269 @@
   <div class="project-body">
     <div class="container">
 
+      <!-- KEY RESULTS -->
       <div class="project-section">
-        <h2>Overview</h2>
-        <p>This project combined statistical analysis and natural language processing to analyze healthcare datasets and surface actionable clinical patterns. The goal was to demonstrate how data science techniques can translate complex health data into meaningful insights for clinical and operational decision-making.</p>
-      </div>
-
-      <div class="project-section">
-        <h2>Methods Applied</h2>
-        <ul>
-          <li><strong>Descriptive Statistics:</strong> Distribution analysis, correlation matrices, outlier detection</li>
-          <li><strong>Statistical Testing:</strong> Hypothesis testing to identify significant clinical variables</li>
-          <li><strong>NLP on Clinical Text:</strong> Processing unstructured notes/descriptions for pattern extraction</li>
-          <li><strong>Visualization:</strong> Matplotlib and seaborn dashboards surfacing clinical trends</li>
-        </ul>
-      </div>
-
-      <div class="project-section">
-        <h2>Code Highlights</h2>
-        <div class="code-block"><code>
-import pandas as pd
-import scipy.stats as stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Statistical test example
-group_a = df[df['treatment'] == 'A']['outcome']
-group_b = df[df['treatment'] == 'B']['outcome']
-t_stat, p_value = stats.ttest_ind(group_a, group_b)
-print(f"t-statistic: {t_stat:.3f}, p-value: {p_value:.4f}")
-
-# Correlation heatmap
-plt.figure(figsize=(10, 8))
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm', center=0)
-plt.title('Clinical Variable Correlations')
-plt.tight_layout()
-        </code></div>
-
-        <div class="placeholder-viz">
-          <span class="viz-icon">🏥</span>
-          <strong>Clinical Pattern Visualization</strong><br>
-          ✏️ Replace with your actual charts and output from the notebook.
+        <h2>Key Results</h2>
+        <div class="metric-cards">
+          <div class="metric-card"><span class="metric-value">0.620</span><span class="metric-label">Best F1 - SVM + NER (No Negated)</span></div>
+          <div class="metric-card"><span class="metric-value">1,000</span><span class="metric-label">Medical Transcriptions</span></div>
+          <div class="metric-card"><span class="metric-value">5</span><span class="metric-label">Clinical Specialties</span></div>
+          <div class="metric-card"><span class="metric-value">3</span><span class="metric-label">Classification Pipelines Compared</span></div>
         </div>
       </div>
 
+      <!-- OVERVIEW -->
       <div class="project-section">
-        <h2>Key Findings</h2>
+        <h2>Project Overview</h2>
+        <p>Medical transcriptions are unstructured clinical text records — doctor notes, consultation summaries, and procedure reports. Automatically classifying these into clinical specialties could dramatically speed up routing, billing, and retrieval in healthcare systems.</p>
+        <p>This project tackled two core questions: Can we automatically determine the medical specialty of a transcription using only its text content? And does enriching the text with biomedical named entities and negation-aware filtering improve classification performance?</p>
+        <p>Three increasingly sophisticated pipelines were built and compared across Logistic Regression, SVM, and Random Forest classifiers.</p>
+      </div>
+
+      <!-- DATASET -->
+      <div class="project-section">
+        <h2>Dataset & Specialties</h2>
+        <p>1,000 medical transcription samples from 5 clinical specialties, with an average transcript length of 150-200 words. Each transcription represents a real clinical record — patient history, exam findings, diagnosis, and treatment notes.</p>
+        <div class="specialty-grid">
+          <div class="specialty-card">
+            <div class="specialty-name">Cardiovascular / Pulmonary</div>
+            <div class="specialty-terms">atrial, catheter, coronary, pulmonary, artery, stent, vein</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Neurology</div>
+            <div class="specialty-terms">headache, EEG, seizure, brain, MRI, tumor, temporal</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Radiology</div>
+            <div class="specialty-terms">ct, image, pelvis, region, exam, evidence, indication</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Orthopedic</div>
+            <div class="specialty-terms">fracture, joint, hip, knee, disc, pain, lateral, screw</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">General Medicine</div>
+            <div class="specialty-terms">denies, tenderness, mg, history, blood, clear, regular</div>
+          </div>
+        </div>
+        <div class="insight-box">
+          <strong>Why TF-IDF works well here:</strong> Medical specialties have highly distinctive vocabularies. "Atrial" and "catheter" almost exclusively appear in cardiovascular notes; "seizure" and "EEG" in neurology. TF-IDF captures these discriminating terms by upweighting words that are frequent in one specialty but rare across others.
+        </div>
+      </div>
+
+      <!-- PREPROCESSING -->
+      <div class="project-section">
+        <h2>Preprocessing Pipeline</h2>
+        <div class="pipeline-steps">
+          <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <div class="step-title">Text Cleaning</div>
+            <div class="step-desc">Lowercase, remove punctuation and special characters, strip whitespace</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <div class="step-title">Tokenization & Stopword Removal</div>
+            <div class="step-desc">Tokenize with spaCy, remove common English stopwords that carry no clinical meaning</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <div class="step-title">TF-IDF Vectorization</div>
+            <div class="step-desc">Convert cleaned text to numerical feature matrix capturing term importance per specialty</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <div class="step-title">NER + Negation</div>
+            <div class="step-desc">ScispaCy extracts medical entities; NegEx flags negated entities for removal in Approach 3</div>
+          </div>
+        </div>
+        <div class="code-block"><code>
+import spacy
+import scispacy
+from negspacy.negation import Negex
+
+# Load biomedical NER model
+nlp = spacy.load("en_core_sci_md")
+nlp.add_pipe("negex")   # add NegEx negation detection
+
+def extract_entities(text, remove_negated=False):
+    doc = nlp(text)
+    entities = []
+    for ent in doc.ents:
+        if remove_negated and ent._.negex:
+            continue   # skip negated entities e.g. "no fracture"
+        entities.append(ent.text.lower().replace(" ", "_"))
+    return " ".join(entities)
+
+# Approach 2: Text + NER entities appended
+df['text_ner'] = df['transcription'] + " " + df['transcription'].apply(
+    lambda x: extract_entities(x, remove_negated=False)
+)
+
+# Approach 3: Text + NER with negated entities removed
+df['text_ner_noneg'] = df['transcription'] + " " + df['transcription'].apply(
+    lambda x: extract_entities(x, remove_negated=True)
+)
+        </code></div>
+      </div>
+
+      <!-- THREE APPROACHES -->
+      <div class="project-section">
+        <h2>Three Classification Approaches</h2>
+        <div class="approach-grid">
+          <div class="approach-card">
+            <div class="approach-num">01</div>
+            <div class="approach-title">Text-Only (Baseline)</div>
+            <div class="approach-desc">Raw transcription text preprocessed and vectorized with TF-IDF. No medical entity extraction. Establishes the performance floor that enriched approaches must beat.</div>
+          </div>
+          <div class="approach-card">
+            <div class="approach-num">02</div>
+            <div class="approach-title">Text + NER Entities</div>
+            <div class="approach-desc">ScispaCy (en_core_sci_md) extracts biomedical concepts - diseases, procedures, drugs, anatomy - and appends them as extra tokens to the text before TF-IDF vectorization.</div>
+          </div>
+          <div class="approach-card">
+            <div class="approach-num">03</div>
+            <div class="approach-title">Text + NER (Negation-Aware)</div>
+            <div class="approach-desc">Same as Approach 2, but NegEx removes negated entities before vectorization. "No fracture" should NOT signal orthopedic content. Reduces misleading signals from negated clinical findings.</div>
+          </div>
+        </div>
+        <div class="insight-box">
+          <strong>Why negation matters in clinical NLP:</strong> Doctors frequently document what a patient does NOT have - "no evidence of stroke", "rule out pneumonia", "denies chest pain". If these negated terms are kept as features, the model incorrectly associates them with the specialty, degrading classification performance.
+        </div>
+      </div>
+
+      <!-- MODELING -->
+      <div class="project-section">
+        <h2>Models & Code</h2>
+        <div class="code-block"><code>
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    df['text'], df['specialty'], test_size=0.2, random_state=42, stratify=df['specialty']
+)
+
+def build_pipeline(classifier):
+    return Pipeline([
+        ('tfidf', TfidfVectorizer(max_features=5000, ngram_range=(1,2))),
+        ('clf', classifier)
+    ])
+
+models = {
+    'Logistic Regression': build_pipeline(LogisticRegression(max_iter=1000)),
+    'SVM':                 build_pipeline(LinearSVC()),
+    'Random Forest':       build_pipeline(RandomForestClassifier(n_estimators=100, random_state=42))
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    print(f"{name}: Accuracy={accuracy_score(y_test, preds):.3f} | F1={f1_score(y_test, preds, average='weighted'):.3f}")
+        </code></div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="project-section">
+        <h2>Results Comparison</h2>
+
+        <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem;">Approach 1: Text Only (Baseline)</h3>
+        <table class="model-table">
+          <thead><tr><th>Model</th><th>Accuracy</th><th>F1 Score</th></tr></thead>
+          <tbody>
+            <tr class="best"><td>Logistic Regression</td><td>0.630</td><td>0.622</td></tr>
+            <tr><td>SVM</td><td>0.610</td><td>0.610</td></tr>
+            <tr><td>Random Forest</td><td>0.545</td><td>0.541</td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem;margin-top:1.5rem;">Approach 2: Text + NER Entities</h3>
+        <table class="model-table">
+          <thead><tr><th>Model</th><th>Accuracy</th><th>F1 Score</th></tr></thead>
+          <tbody>
+            <tr><td>Logistic Regression + NER</td><td>0.630</td><td>0.625</td></tr>
+            <tr><td>SVM + NER</td><td>0.615</td><td>0.615</td></tr>
+            <tr><td>Random Forest + NER</td><td>0.555</td><td>0.554</td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem;margin-top:1.5rem;">Approach 3: Text + NER (Negated Entities Removed)</h3>
+        <table class="model-table">
+          <thead><tr><th>Model</th><th>Accuracy</th><th>F1 Score</th></tr></thead>
+          <tbody>
+            <tr><td>Logistic Regression + NER (No Negated)</td><td>0.625</td><td>0.620</td></tr>
+            <tr class="best"><td>SVM + NER (No Negated) - Best Overall</td><td>0.620</td><td>0.620</td></tr>
+            <tr><td>Random Forest + NER (No Negated)</td><td>0.545</td><td>0.542</td></tr>
+          </tbody>
+        </table>
+
+        <div class="insight-box" style="margin-top:1.5rem;">
+          <strong>Best overall model:</strong> SVM with Text + NER (No Negated) achieved the most balanced F1 of 0.620 across all 5 specialties. While Logistic Regression had a higher accuracy in the text-only baseline, SVM's performance was more consistent across minority specialties - making it more reliable for real-world deployment.
+        </div>
+      </div>
+
+      <!-- TF-IDF FEATURE IMPORTANCE -->
+      <div class="project-section">
+        <h2>TF-IDF Feature Importance by Specialty</h2>
+        <p>Analysis of the top TF-IDF weighted terms per specialty reveals clinically meaningful discriminating vocabulary - confirming the model is learning real medical language patterns, not noise.</p>
+        <div class="specialty-grid">
+          <div class="specialty-card">
+            <div class="specialty-name">Cardiovascular / Pulmonary</div>
+            <div class="specialty-terms">atrial · lung · catheter · coronary · vein · stent · heart · pulmonary · artery · chest</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Neurology</div>
+            <div class="specialty-terms">mri · year · eeg · headache · report · activity · seizure · brain · temporal · tumor</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Radiology</div>
+            <div class="specialty-terms">evidence · pelvis · region · fraction · cm · fetal · ct · exam · indication · image</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">Orthopedic</div>
+            <div class="specialty-terms">disc · diagnosis · screw · foot · lateral · pain · joint · fracture · hip · knee</div>
+          </div>
+          <div class="specialty-card">
+            <div class="specialty-name">General Medicine</div>
+            <div class="specialty-terms">sound · nontender · denies · tenderness · regular · blood · clear · mg · negative · history</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY FINDINGS -->
+      <div class="project-section">
+        <h2>Key Findings & Conclusions</h2>
         <ul>
-          <li>Identified statistically significant correlations between selected clinical variables</li>
-          <li>NLP preprocessing revealed recurring symptom patterns in unstructured clinical text</li>
-          <li>Visualization dashboards highlighted actionable trends for clinical staff review</li>
-          <li>Analysis supported evidence-based recommendations for resource and treatment planning</li>
+          <li><strong>Text alone is a strong baseline</strong> - TF-IDF on raw transcription text achieves 0.622 F1 without any medical entity extraction, showing that clinical vocabulary is highly discriminating</li>
+          <li><strong>NER enrichment provides consistent small gains</strong> - adding ScispaCy biomedical entities improves F1 by 0.003-0.013 across models, confirming that medical entity extraction adds genuine signal</li>
+          <li><strong>Negation handling is most beneficial for SVM</strong> - removing negated entities improved SVM's F1 from 0.615 to 0.620, and its performance became more balanced across all 5 specialties</li>
+          <li><strong>Random Forest underperforms</strong> - consistently lowest F1 across all three approaches, suggesting that ensemble tree methods are less suited to high-dimensional sparse TF-IDF feature spaces</li>
+          <li><strong>Specialties with overlapping terminology benefit most from negation removal</strong> - General Medicine and Neurology share terms like "headache" and "blood", and negation-aware filtering reduces cross-specialty confusion</li>
         </ul>
+        <p style="margin-top:1.5rem;"><strong>Future improvements:</strong></p>
+        <ul>
+          <li>Use domain-adapted transformers like BioBERT or ClinicalBERT for richer contextual representations</li>
+          <li>Add UMLS Concept Unique Identifiers (CUIs) for standardized medical concept mapping</li>
+          <li>Apply SMOTE to balance specialty class distribution</li>
+          <li>Try hybrid TF-IDF + word embedding representations</li>
+          <li>Explore CNN and LSTM deep learning classifiers</li>
+        </ul>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div class="download-section">
+        <h2>Project Files</h2>
+        <p>Download the full Jupyter notebook and presentation slides.</p>
+        <div class="download-buttons">
+          <a href="../assets/files/Health_Analytics_Notebook.ipynb" download class="download-btn">
+            <span>📓</span> Download Notebook (.ipynb)
+          </a>
+          <a href="../assets/files/Health_Analytics_Presentation.pdf" target="_blank" class="download-btn">
+            <span>📊</span> View Presentation (.pdf)
+          </a>
+        </div>
       </div>
 
     </div>
@@ -91,8 +348,9 @@ plt.tight_layout()
     <div class="container footer-inner">
       <div class="footer-name">Naila Ahmad Farooqi</div>
       <div class="footer-links">
-        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html">Portfolio</a>
         <a href="../index.html#projects">All Projects</a>
+        <a href="mailto:nailafarooqi394@gmail.com">Email</a>
       </div>
     </div>
   </footer>
