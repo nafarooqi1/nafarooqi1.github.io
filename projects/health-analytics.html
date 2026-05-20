@@ -204,6 +204,12 @@ df['text_ner_noneg'] = df['transcription'] + " " + df['transcription'].apply(
         <div class="insight-box">
           <strong>Why negation matters in clinical NLP:</strong> Doctors frequently document what a patient does NOT have - "no evidence of stroke", "rule out pneumonia", "denies chest pain". If these negated terms are kept as features, the model incorrectly associates them with the specialty, degrading classification performance.
         </div>
+
+        <h3 style="font-size:1rem;color:var(--navy);margin:1.5rem 0 .75rem;">Top 15 Most Frequent Medical Entities (ScispaCy NER)</h3>
+        <div style="background:var(--cream-2);border-radius:10px;overflow:hidden;">
+          <img src="../assets/images/health-medical-entities.png" alt="Top 15 Most Frequent Medical Entities" style="width:100%;display:block;" />
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;">Pain dominates at 250+ occurrences across all specialties. Hemorrhage, hypertensive disease, and dyspnea follow — reflecting the clinical breadth of the dataset. These extracted entities are the additional features appended to the text in Approaches 2 and 3.</p>
       </div>
 
       <!-- MODELING -->
@@ -276,6 +282,19 @@ for name, model in models.items():
 
         <div class="insight-box" style="margin-top:1.5rem;">
           <strong>Best overall model:</strong> SVM with Text + NER (No Negated) achieved the most balanced F1 of 0.620 across all 5 specialties. While Logistic Regression had a higher accuracy in the text-only baseline, SVM's performance was more consistent across minority specialties - making it more reliable for real-world deployment.
+        </div>
+
+        <h3 style="font-size:1rem;color:var(--navy);margin:2rem 0 .75rem;">Confusion Matrices</h3>
+        <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.25rem;">The confusion matrices reveal where each model struggles. Radiology is consistently the hardest specialty to classify — it shares terminology with other specialties and is frequently misclassified as Neurology. General Medicine and Orthopedic are the strongest classes across both models.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+          <div style="background:var(--cream-2);border-radius:10px;overflow:hidden;">
+            <img src="../assets/images/health-cm-lr.png" alt="Confusion Matrix - Logistic Regression" style="width:100%;display:block;" />
+            <div style="padding:.75rem 1rem;font-size:.82rem;color:var(--muted);"><strong style="color:var(--navy);display:block;margin-bottom:.25rem;">Logistic Regression</strong>Strong on General Medicine (32/40) and Cardiovascular (29/40). Radiology struggles most with only 13/40 correct.</div>
+          </div>
+          <div style="background:var(--cream-2);border-radius:10px;overflow:hidden;">
+            <img src="../assets/images/health-cm-svm.png" alt="Confusion Matrix - SVM" style="width:100%;display:block;" />
+            <div style="padding:.75rem 1rem;font-size:.82rem;color:var(--muted);"><strong style="color:var(--navy);display:block;margin-bottom:.25rem;">SVM (Best Model)</strong>More balanced across specialties. Orthopedic strong at 29/40. Radiology still the weakest at 12/40 — confirming it as the hardest specialty to separate.</div>
+          </div>
         </div>
       </div>
 
