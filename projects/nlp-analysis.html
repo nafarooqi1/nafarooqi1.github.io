@@ -1,29 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Text Mining & NLP — Naila Ahmad Farooqi</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Named Entity Recognition with BERT - Naila Ahmad Farooqi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .entity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0}
+    .entity-card{background:var(--navy);color:var(--white);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .entity-tag{font-family:monospace;font-size:1rem;font-weight:700;color:var(--gold);display:block;margin-bottom:.4rem}
+    .entity-desc{font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.4}
+
+    .pipeline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0}
+    .pipeline-step{background:var(--navy);border-radius:10px;padding:1.25rem;text-align:center;border:1px solid rgba(201,168,76,.2)}
+    .pipeline-step .step-num{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:.5rem}
+    .pipeline-step .step-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+    .pipeline-step .step-desc{font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+    .training-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem}
+    .training-table th{background:var(--navy);color:var(--gold);padding:.75rem 1rem;text-align:left;font-weight:600}
+    .training-table td{padding:.7rem 1rem;border-bottom:1px solid var(--cream-2);color:var(--muted)}
+    .training-table tr:last-child td{border-bottom:none}
+    .training-table tr.best td{color:var(--navy);font-weight:600;background:rgba(201,168,76,.08)}
+
+    .insight-box{background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+    .insight-box strong{color:var(--navy)}
+
+    .result-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+    .result-card{background:var(--cream-2);border-radius:10px;padding:1.5rem;text-align:center}
+    .result-value{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.3rem}
+    .result-label{font-size:.78rem;color:var(--muted)}
+
+    .download-section{background:var(--navy);border-radius:14px;padding:2.5rem;margin-top:3rem;border:1px solid rgba(201,168,76,.2)}
+    .download-section h2{color:var(--white);margin-bottom:1rem}
+    .download-section p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem}
+    .download-buttons{display:flex;flex-wrap:wrap;gap:1rem}
+    .download-btn{display:inline-flex;align-items:center;gap:.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:.88rem;font-weight:500;padding:.75rem 1.5rem;border-radius:var(--radius);font-family:var(--font-body);text-decoration:none;transition:all .25s ease}
+    .download-btn:hover{background:var(--gold);color:var(--navy)}
+
+    @media(max-width:700px){.entity-grid,.pipeline-grid,.result-cards{grid-template-columns:1fr 1fr}}
+    @media(max-width:450px){.entity-grid,.pipeline-grid,.result-cards{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
+
   <nav id="navbar" class="scrolled">
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">NAF</a>
-      <ul class="nav-links"><li><a href="../index.html#projects">← All Projects</a></li></ul>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">All Projects</a></li>
+      </ul>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <div class="project-page-hero">
     <div class="container">
-      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
-      <h1>Text Mining & NLP Analysis</h1>
-      <p>Applied NLTK and TF-IDF on unstructured text data for sentiment analysis and topic modeling, translating raw text into structured analytical findings.</p>
+      <a href="../index.html#projects" class="back-link">Back to Projects</a>
+      <h1>Named Entity Recognition with BERT Transformers</h1>
+      <p>Text Mining project (BDM550) - Fine-tuned a BERT transformer model on the CoNLL-2003 benchmark dataset to identify and classify named entities such as people, organizations, locations, and miscellaneous entities in text.</p>
       <div class="project-meta-badges">
-        <span>📝 NLP — 2025</span><span>Python</span><span>NLTK</span><span>TF-IDF</span><span>Sentiment Analysis</span>
+        <span>BDM550 - Text Mining · 2025</span>
+        <span>Python</span><span>BERT</span><span>HuggingFace</span>
+        <span>Transformers</span><span>NLP</span><span>seqeval</span>
       </div>
     </div>
   </div>
@@ -31,62 +75,285 @@
   <div class="project-body">
     <div class="container">
 
+      <!-- KEY RESULTS -->
       <div class="project-section">
-        <h2>Overview</h2>
-        <p>This project applies core NLP techniques to unstructured text corpora, building pipelines that clean, tokenize, vectorize, and model text data. The goal was to extract meaningful patterns — sentiment trends and latent topics — that are not visible in raw text.</p>
-      </div>
-
-      <div class="project-section">
-        <h2>Techniques Applied</h2>
-        <ul>
-          <li><strong>Text Preprocessing:</strong> Lowercasing, punctuation removal, stopword filtering, stemming/lemmatization</li>
-          <li><strong>Tokenization:</strong> Word and sentence-level tokenization with NLTK</li>
-          <li><strong>TF-IDF Vectorization:</strong> Converting text to numerical features capturing term importance</li>
-          <li><strong>Sentiment Analysis:</strong> Polarity scoring using VADER and lexicon-based approaches</li>
-          <li><strong>Topic Modeling:</strong> LDA for latent topic discovery across document corpus</li>
-        </ul>
-      </div>
-
-      <div class="project-section">
-        <h2>Code Highlights</h2>
-        <div class="code-block"><code>
-import nltk
-from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
-# Preprocessing
-def preprocess(text):
-    tokens = nltk.word_tokenize(text.lower())
-    tokens = [t for t in tokens if t.isalpha()]
-    stop_words = set(nltk.corpus.stopwords.words('english'))
-    return ' '.join([t for t in tokens if t not in stop_words])
-
-# TF-IDF
-vectorizer = TfidfVectorizer(max_features=500)
-X_tfidf = vectorizer.fit_transform(df['text'].apply(preprocess))
-
-# Sentiment scoring
-sid = SentimentIntensityAnalyzer()
-df['sentiment'] = df['text'].apply(
-    lambda x: sid.polarity_scores(x)['compound']
-)
-        </code></div>
-
-        <div class="placeholder-viz">
-          <span class="viz-icon">☁️</span>
-          <strong>Word Cloud / Sentiment Distribution</strong><br>
-          ✏️ Replace with your actual output visualization from the notebook.
+        <h2>Key Results</h2>
+        <div class="metric-cards">
+          <div class="metric-card"><span class="metric-value">89.63%</span><span class="metric-label">F1 Score (Test Set)</span></div>
+          <div class="metric-card"><span class="metric-value">87.75%</span><span class="metric-label">Precision</span></div>
+          <div class="metric-card"><span class="metric-value">91.60%</span><span class="metric-label">Recall</span></div>
+          <div class="metric-card"><span class="metric-value">3</span><span class="metric-label">Training Epochs</span></div>
         </div>
       </div>
 
+      <!-- OVERVIEW -->
+      <div class="project-section">
+        <h2>Project Overview</h2>
+        <p>Named Entity Recognition (NER) is the task of identifying and classifying named entities in text into predefined categories such as person names, organizations, and locations. This project fine-tuned a pre-trained BERT (Bidirectional Encoder Representations from Transformers) model on the CoNLL-2003 benchmark - the industry-standard dataset for NER evaluation.</p>
+        <p>Rather than building a model from scratch, the approach leverages transfer learning: BERT was pre-trained on massive text corpora and then fine-tuned specifically for token-level classification on NER labels. This is a state-of-the-art deep learning approach used in real-world NLP applications like information extraction, knowledge graph construction, and document processing.</p>
+
+        <div class="insight-box">
+          <strong>Why BERT for NER?</strong> Traditional NLP approaches (rule-based or feature-engineered models) struggle with context-dependent entity recognition. "Apple" could be a fruit or a company depending on context. BERT's bidirectional attention mechanism reads the full sentence in both directions simultaneously, allowing it to resolve such ambiguities accurately.
+        </div>
+      </div>
+
+      <!-- ENTITY TYPES -->
+      <div class="project-section">
+        <h2>Entity Types Recognized</h2>
+        <p>The model was trained to recognize 4 entity categories using BIO (Beginning, Inside, Outside) tagging - a standard NER annotation scheme with 9 labels total.</p>
+        <div class="entity-grid">
+          <div class="entity-card">
+            <span class="entity-tag">B-PER / I-PER</span>
+            <div class="entity-desc">Person names<br>e.g. "Naila Farooqi", "Elon Musk"</div>
+          </div>
+          <div class="entity-card">
+            <span class="entity-tag">B-ORG / I-ORG</span>
+            <div class="entity-desc">Organizations<br>e.g. "Seneca Polytechnic", "Google"</div>
+          </div>
+          <div class="entity-card">
+            <span class="entity-tag">B-LOC / I-LOC</span>
+            <div class="entity-desc">Locations<br>e.g. "Toronto", "United Kingdom"</div>
+          </div>
+          <div class="entity-card">
+            <span class="entity-tag">B-MISC / I-MISC</span>
+            <div class="entity-desc">Miscellaneous entities<br>e.g. nationalities, events, products</div>
+          </div>
+        </div>
+        <div class="code-block"><code>
+# BIO label scheme - 9 labels total
+label_list = [
+    "O",          # Outside any entity
+    "B-PER", "I-PER",    # Person (Beginning / Inside)
+    "B-ORG", "I-ORG",    # Organization
+    "B-LOC", "I-LOC",    # Location
+    "B-MISC", "I-MISC"   # Miscellaneous
+]
+
+label2id = {lab: i for i, lab in enumerate(label_list)}
+id2label = {i: lab for lab, i in label2id.items()}
+        </code></div>
+      </div>
+
+      <!-- DATASET -->
+      <div class="project-section">
+        <h2>Dataset: CoNLL-2003</h2>
+        <p>The CoNLL-2003 dataset is the industry-standard benchmark for NER evaluation, derived from Reuters news articles. It is pre-split into training, validation, and test sets in CoNLL format — one token per line with its NER label.</p>
+        <ul>
+          <li><strong>Format:</strong> CoNLL — each line contains a token and its BIO label, sentences separated by blank lines</li>
+          <li><strong>Splits:</strong> Train / Validation / Test — already provided, no manual splitting required</li>
+          <li><strong>Domain:</strong> News articles (Reuters wire stories)</li>
+          <li><strong>Challenge:</strong> Subword tokenization — BERT's tokenizer splits words into subwords, requiring label alignment to preserve correct entity boundaries</li>
+        </ul>
+        <div class="code-block"><code>
+# Load CoNLL format data
+def load_conll_data(filepath):
+    sentences, labels = [], []
+    tokens, ner_tags = [], []
+    with open(filepath, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                if tokens:
+                    sentences.append(tokens)
+                    labels.append(ner_tags)
+                    tokens, ner_tags = [], []
+            else:
+                parts = line.split()
+                tokens.append(parts[0])
+                ner_tags.append(parts[-1])
+    return sentences, labels
+
+train_sentences, train_labels = load_conll_data("/content/train.txt")
+valid_sentences, valid_labels = load_conll_data("/content/valid.txt")
+test_sentences,  test_labels  = load_conll_data("/content/test.txt")
+        </code></div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="project-section">
+        <h2>Pipeline</h2>
+        <div class="pipeline-grid">
+          <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <div class="step-title">Data Loading</div>
+            <div class="step-desc">Parse CoNLL files into token and label sequences for all 3 splits</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <div class="step-title">Tokenization & Label Alignment</div>
+            <div class="step-desc">BERT tokenizer splits words into subwords - labels must be aligned to preserve entity boundaries</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <div class="step-title">Model Fine-tuning</div>
+            <div class="step-desc">bert-base-cased fine-tuned for token classification over 3 epochs with early stopping</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <div class="step-title">Evaluation</div>
+            <div class="step-desc">seqeval metrics: entity-level precision, recall, F1 on held-out test set</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREPROCESSING -->
+      <div class="project-section">
+        <h2>Tokenization & Label Alignment</h2>
+        <p>BERT uses a WordPiece tokenizer that splits words into subword units. For example, "Washington" might become ["Washington"] but "Farooqi" might become ["Far", "##ooqi"]. Each subword gets a position, but only the first subword of a word should carry the entity label - the rest are marked -100 to be ignored in the loss calculation.</p>
+        <div class="code-block"><code>
+MODEL_NAME = "bert-base-cased"
+tokenizer  = BertTokenizerFast.from_pretrained(MODEL_NAME)
+MAX_LENGTH = 128
+
+def align_labels_for_sentence(word_ids, token_labels):
+    """
+    Aligns original token-level labels to BERT subword tokens.
+    - Special tokens ([CLS], [SEP]) and padding -> -100 (ignored in loss)
+    - First subword of a word -> original label
+    - Subsequent subwords -> B-X converted to I-X
+    """
+    label_ids = []
+    previous_word_idx = None
+    for word_idx in word_ids:
+        if word_idx is None:
+            label_ids.append(-100)           # special/padding token
+        elif word_idx != previous_word_idx:
+            label_ids.append(label2id[token_labels[word_idx]])  # first subword
+        else:
+            # convert B-X to I-X for continuation subwords
+            orig = token_labels[word_idx]
+            label_ids.append(label2id["I" + orig[1:]] if orig.startswith("B") else label2id[orig])
+        previous_word_idx = word_idx
+    return label_ids
+        </code></div>
+      </div>
+
+      <!-- MODEL TRAINING -->
+      <div class="project-section">
+        <h2>Model: Fine-tuning BERT</h2>
+        <p>The <code>bert-base-cased</code> model (case-sensitive, important for NER) was loaded from HuggingFace and fine-tuned for token classification. A linear classification head was added on top of BERT's hidden states, mapping each token's representation to one of the 9 NER labels.</p>
+        <div class="code-block"><code>
+from transformers import BertForTokenClassification, Trainer, TrainingArguments
+from transformers import DataCollatorForTokenClassification
+
+# Load pre-trained BERT with NER classification head
+model = BertForTokenClassification.from_pretrained(
+    "bert-base-cased",
+    num_labels=len(label_list),   # 9 labels
+    id2label=id2label,
+    label2id=label2id
+)
+
+# Training configuration
+training_args = TrainingArguments(
+    output_dir="./ner_bert",
+    eval_strategy="epoch",
+    save_strategy="epoch",
+    learning_rate=5e-5,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=16,
+    num_train_epochs=3,
+    weight_decay=0.01,
+    load_best_model_at_end=True,
+    metric_for_best_model="f1"
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=valid_dataset,
+    tokenizer=tokenizer,
+    data_collator=DataCollatorForTokenClassification(tokenizer),
+    compute_metrics=compute_metrics
+)
+
+trainer.train()
+        </code></div>
+      </div>
+
+      <!-- TRAINING RESULTS -->
+      <div class="project-section">
+        <h2>Training Results</h2>
+        <p>The model was trained for 3 epochs, with evaluation performed after each epoch on the validation set. Training loss decreased steadily, indicating the model was learning effectively.</p>
+
+        <table class="training-table">
+          <thead>
+            <tr><th>Epoch</th><th>Training Loss</th><th>Validation Loss</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>0.0794</td><td>0.0606</td><td>Initial learning - rapid improvement</td></tr>
+            <tr><td>2</td><td>0.0421</td><td>0.0533</td><td>Continued improvement on validation</td></tr>
+            <tr class="best"><td>3 (Best)</td><td>0.0128</td><td>0.0579</td><td>Slight validation increase - best model saved at epoch 2</td></tr>
+          </tbody>
+        </table>
+
+        <div class="insight-box">
+          <strong>Slight validation loss increase at epoch 3</strong> is a normal early sign of overfitting. The <code>load_best_model_at_end=True</code> setting ensures the best checkpoint (epoch 2) is used for final evaluation rather than the last epoch - a best practice in transformer fine-tuning.
+        </div>
+
+        <h3 style="margin-top:2rem;font-size:1.2rem;">Final Test Set Evaluation</h3>
+        <div class="result-cards">
+          <div class="result-card">
+            <span class="result-value">87.75%</span>
+            <span class="result-label">Precision - 87.8% of predicted entities were correct (low false positives)</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">91.60%</span>
+            <span class="result-label">Recall - 91.6% of true entities were correctly found (low false negatives)</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">89.63%</span>
+            <span class="result-label">F1 Score - Harmonic mean of precision and recall on the test set</span>
+          </div>
+        </div>
+
+        <div class="code-block"><code>
+# seqeval evaluation - entity-level metrics (not token-level)
+def compute_metrics(p):
+    predictions, labels = p
+    predictions = np.argmax(predictions, axis=2)
+
+    true_labels = [[id2label[l] for l in label_seq if l != -100]
+                   for label_seq in labels]
+    true_preds  = [[id2label[pred] for (pred, l) in zip(pred_seq, label_seq) if l != -100]
+                   for pred_seq, label_seq in zip(predictions, labels)]
+
+    return {
+        "precision": precision_score(true_labels, true_preds),
+        "recall":    recall_score(true_labels, true_preds),
+        "f1":        f1_score(true_labels, true_preds),
+    }
+
+# Final test results
+# eval_loss:      0.1745
+# eval_precision: 0.8775
+# eval_recall:    0.9160
+# eval_f1:        0.8963
+        </code></div>
+      </div>
+
+      <!-- KEY FINDINGS -->
       <div class="project-section">
         <h2>Key Findings</h2>
         <ul>
-          <li>TF-IDF effectively identified discriminating terms across document categories</li>
-          <li>VADER sentiment analysis captured polarity shifts across time-based text corpora</li>
-          <li>LDA topic modeling revealed coherent latent themes not visible in raw text</li>
-          <li>Preprocessing quality had the highest impact on downstream model performance</li>
+          <li><strong>F1 of 89.63% is strong performance</strong> on the CoNLL-2003 benchmark, which is the standard NER evaluation dataset used to compare models across the NLP research community</li>
+          <li><strong>Recall (91.6%) higher than Precision (87.75%)</strong> means the model is slightly more aggressive at identifying entities - it misses fewer entities but occasionally tags non-entities. For most real-world NER applications, higher recall is preferred</li>
+          <li><strong>Transfer learning is highly effective</strong> - BERT's pre-trained contextual representations allow the model to generalize to NER with just 3 epochs of fine-tuning on a relatively small labeled dataset</li>
+          <li><strong>Case sensitivity matters</strong> - using <code>bert-base-cased</code> (rather than uncased) is important for NER because proper nouns like "Apple" vs "apple" carry different semantic meaning</li>
+          <li><strong>Label alignment is the critical preprocessing step</strong> - incorrect subword-to-label alignment would corrupt the training signal and significantly reduce model performance</li>
         </ul>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div class="download-section">
+        <h2>Project Files</h2>
+        <p>Download the full Jupyter notebook with model training code and evaluation.</p>
+        <div class="download-buttons">
+          <a href="../assets/files/NER_BERT_Notebook.ipynb" download class="download-btn">
+            <span>📓</span> Download Notebook (.ipynb)
+          </a>
+        </div>
       </div>
 
     </div>
@@ -96,8 +363,9 @@ df['sentiment'] = df['text'].apply(
     <div class="container footer-inner">
       <div class="footer-name">Naila Ahmad Farooqi</div>
       <div class="footer-links">
-        <a href="../index.html">← Portfolio</a>
+        <a href="../index.html">Portfolio</a>
         <a href="../index.html#projects">All Projects</a>
+        <a href="mailto:nailafarooqi394@gmail.com">Email</a>
       </div>
     </div>
   </footer>
